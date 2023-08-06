@@ -36,6 +36,7 @@ static int usage(const char *name, int rv, const char *msg = nullptr, const char
 	printf("  -p          -- output plaintext error messages instead of HTML\n");
 	printf("  -d          -- set dark mode\n");
 	printf("  -q          -- don't copy non-diagram input to output\n");
+	printf("  -Q          -- remove all diagrams\n");
 	printf("  -n #        -- only translate diagram number # (starting at 1)\n");
 	printf("  -h          -- print this help\n");
 
@@ -47,14 +48,15 @@ int main(int argc, char **argv)
 	int ch;
 	const char *svgClass = nullptr;
 	bool bareMode = false;
-	bool quietMode = false;
+	bool includeDocument = true;
+	bool includeDiagrams = true;
 	unsigned int plaintextErrors = 0;
 	unsigned int darkmode = 0;
 	unsigned int flags = 0;
 	size_t onlyDiagramNumber = 0;
 	int rv = 0;
 
-	while((ch = getopt(argc, argv, "c:bpdqn:h")) != -1)
+	while((ch = getopt(argc, argv, "c:bpdqQn:h")) != -1)
 	{
 		switch(ch)
 		{
@@ -75,7 +77,11 @@ int main(int argc, char **argv)
 			break;
 
 		case 'q':
-			quietMode = true;
+			includeDocument = false;
+			break;
+
+		case 'Q':
+			includeDiagrams = false;
 			break;
 
 		case 'n':
@@ -118,7 +124,7 @@ int main(int argc, char **argv)
 			{
 				accumulating = false;
 
-				if((diagramNumber == onlyDiagramNumber) or not onlyDiagramNumber)
+				if(includeDiagrams and ((diagramNumber == onlyDiagramNumber) or not onlyDiagramNumber))
 				{
 					int width = 0;
 					int height = 0;
@@ -159,7 +165,7 @@ int main(int argc, char **argv)
 				accumulating = true;
 				diagramNumber++;
 			}
-			else if((not quietMode) and (fwrite(line, linelen, 1, stdout) < 1))
+			else if(includeDocument and (fwrite(line, linelen, 1, stdout) < 1))
 			{
 				perror("writing to stdout");
 				rv = 1;
