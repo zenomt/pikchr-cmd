@@ -62,15 +62,8 @@ standard output unchanged.
 Note that generic Markdown [fenced code blocks][fenced] can begin with three
 _or more_ `~` (`TILDE`) or <code>&#96;</code> (`GRAVE ACCENT` backtick)
 characters indented by up to three spaces, and continue to a matching fence.
-For simplicity, this tool is more restrictive when recognizing Pikchr diagrams,
+For simplicity, this tool is more restrictive when looking for Pikchr diagrams,
 requiring exactly three unindented tildes or backticks.
-
-Why C++?
---------
-Even though this driver program is trivial, C++ was chosen because the C++11
-standard library includes Regular Expressions (for recognizing the start and
-end delimiters), and `std::string` is super convenient for accumulating
-arbitrary-length C strings in memory to pass to the `pikchr()` C function.
 
 Building
 --------

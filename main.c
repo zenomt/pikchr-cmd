@@ -8,8 +8,6 @@
 // Pikchr's home page: https://pikchr.org/
 // GitHub mirror: https://github.com/drhsqlite/pikchr
 
-extern "C" {
-
 #include <iso646.h>
 #include <regex.h>
 #include <stdbool.h>
@@ -20,13 +18,11 @@ extern "C" {
 
 #include "drhsqlite-pikchr/pikchr.h"
 
-}
-
-struct buffer_t {
-	char *buf;
-	size_t capacity;
-	size_t offset;
-};
+typedef struct {
+	char   *buf;
+	size_t  capacity;
+	size_t  offset;
+} buffer_t;
 
 static int bufferAppend(buffer_t *buffer, char *str, size_t len)
 {
