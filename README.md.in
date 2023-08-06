@@ -1,0 +1,82 @@
+Pikchr Command-Line Driver
+==========================
+This program is a Unix Way™ pipeline-friendly command-line driver for the
+[C reference implementation][DRH] of [Pikchr][], a [PIC][]-like diagram
+language. It reads text from the standard input, replacing suitably-delimited
+Pikchr diagrams with inline Scalable Vector Graphics (SVG), and writes to the
+standard output. It’s intended for use with your favorite Markdown processor,
+but can be used standalone or with other markup languages too.
+
+``` pikchr
+arrow right 225% "Markdown+Pikchr" "Source"
+box rad 5px "pikchr" mono "Filter" fit
+arrow same "Markdown+SVG" "Intermediate"
+box same "Any Markdown" "Formatter" fit
+arrow same "HTML+SVG" "Output"
+```
+
+    ``` pikchr
+    arrow right 225% "Markdown+Pikchr" "Source"
+    box rad 5px "pikchr" mono "Filter" fit
+    arrow same "Markdown+SVG" "Intermediate"
+    box same "Markdown" "Formatter" fit
+    arrow same "HTML+SVG" "Output"
+    ```
+
+Example (pipeline):
+
+    $ pikchr < file.md | Markdown.pl > README.html
+
+Example (intermediate file):
+
+    $ pikchr < README.md.in > README.md
+    $ Markdown.pl < README.md > README.html
+
+Delimiters
+----------
+A Pikchr diagram starts with a line beginning with any of the following strings:
+
+* <code>``` pikchr</code>
+* `~~~ pikchr`
+* `.PS`
+
+and ends with the next line that is exactly of any of the following
+strings:
+
+* <code>```</code>
+* `~~~`
+* `.PE`
+
+Anything not between a pair of start and end delimiters is copied to the
+standard output unchanged.
+
+Note that generic Markdown [fenced code blocks][fenced] can begin with three
+_or more_ `~` (`TILDE`) or <code>&#96;</code> (`GRAVE ACCENT` backtick)
+characters indented by up to three spaces, and continue to a matching fence.
+For simplicity, this tool is more restrictive when recognizing Pikchr diagrams,
+requiring exactly three unindented tildes or backticks.
+
+Why C++?
+--------
+Even though this driver program is trivial, C++ was chosen because the C++11
+standard library includes Regular Expressions (for recognizing the start and
+end delimiters), and `std::string` is super convenient for accumulating
+arbitrary-length C strings in memory to pass to the `pikchr()` C function.
+
+Building
+--------
+The C reference implementation of Pikchr is linked as a Git submodule, so be
+sure to load submodules when cloning this repository. Note the reference
+implementation repository includes a ready-to-use C source file; the
+submodule doesn’t require its own build step.
+
+    $ git clone --recurse-submodules https://github.com/zenomt/pikchr
+    $ cd pikchr
+    $ make
+    $ ./pikchr -h
+
+
+  [DRH]: https://github.com/drhsqlite/pikchr
+  [Pikchr]: https://pikchr.org/
+  [PIC]: https://en.wikipedia.org/wiki/PIC_(markup_language)
+  [fenced]: https://spec.commonmark.org/0.30/#fenced-code-blocks
