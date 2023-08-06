@@ -147,15 +147,16 @@ int main(int argc, char **argv)
 
 	size_t linecapp = 8192;
 	char *line = (char *)malloc(linecapp);
-	ssize_t linelen;
 	bool accumulating = false;
 	size_t diagramNumber = 0;
 
 	buffer_t accumulator;
 	bufferInit(&accumulator, 8192);
 
-	while((linelen = getline(&line, &linecapp, stdin)))
+	while(true)
 	{
+		ssize_t linelen = getline(&line, &linecapp, stdin);
+
 		if(ferror(stdin))
 		{
 			perror("reading from stdin");
@@ -165,7 +166,7 @@ int main(int argc, char **argv)
 
 		if(accumulating)
 		{
-			if(feof(stdin) or (0 == regexec(&endPattern, line, 0, NULL, 0)))
+			if((linelen < 0) or (0 == regexec(&endPattern, line, 0, NULL, 0)))
 			{
 				accumulating = false;
 
@@ -202,7 +203,7 @@ int main(int argc, char **argv)
 		}
 		else
 		{
-			if(feof(stdin))
+			if(linelen < 0)
 				break;
 
 			if(0 == regexec(&startPattern, line, 0, NULL, 0))
