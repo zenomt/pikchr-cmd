@@ -44,7 +44,7 @@ GitHub doesn’t allow inline SVGs, so here’s the above diagram as an external
 
 Example (pipeline):
 
-    $ pikchr < file.md | Markdown.pl > README.html
+    $ pikchr < file.md | Markdown.pl > file.html
 
 Example (intermediate file):
 
