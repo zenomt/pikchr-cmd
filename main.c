@@ -70,7 +70,7 @@ static int usage(const char *name, int rv, const char *msg)
 
 	printf("usage: %s [options]\n", name);
 	printf("  -c aClass   -- add class=\"aClass\" to <svg> tags\n");
-	printf("  -b          -- bare mode, don't wrap <svg>s in a <div> to style max-width\n");
+	printf("  -b          -- bare mode, don't wrap <svg> in <div> to style max-width\n");
 	printf("  -p          -- output plaintext error messages instead of HTML\n");
 	printf("  -d          -- set dark mode\n");
 	printf("  -q          -- don't copy non-diagram input to output\n");
