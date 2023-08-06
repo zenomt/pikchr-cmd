@@ -93,7 +93,7 @@ _or more_ `~` (`TILDE`) or <code>&#96;</code> (`GRAVE ACCENT` backtick)
 characters indented by up to three spaces, and continue to a matching fence.
 For simplicity, this tool is less flexible when looking for Pikchr diagrams,
 requiring exactly three unindented tildes or backticks (or the traditional
-[PIC][] delimiters)
+[PIC][] delimiters).
 
 Building
 --------
