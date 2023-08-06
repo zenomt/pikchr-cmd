@@ -106,7 +106,7 @@ int main(int argc, char **argv)
 			bareMode = true;
 			break;
 
-		case 'P':
+		case 'p':
 			plaintextErrors = PIKCHR_PLAINTEXT_ERRORS;
 			break;
 
