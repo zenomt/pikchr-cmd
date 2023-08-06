@@ -7,7 +7,7 @@ It’s intended for use with your favorite Markdown processor, but can be used
 standalone or with other markup languages too.
 
 This tool uses the [C reference implementation of Pikchr by Richard Hipp][DRH]
-which is included here for convenience, as permitted by its generous license.
+which is included here for convenience (as permitted by its generous license).
 
 ``` pikchr
 arrow right 225% "Markdown+Pikchr" "Source"
@@ -15,9 +15,8 @@ Tool: box rad 5px "pikchr" mono "Preprocessor" "(main.c)" mono fit
 arrow same "Markdown+SVG" "Intermediate"
 box same "Any Markdown" "Formatter" fit
 arrow same "HTML+SVG" "Output"
-arrow <-> down from Tool.s
-box same "Pikchr" "Formatter" "(pikchr.c)" mono fit
-"C API" ljust at 4pt right of last arrow
+arrow <-> down from Tool.s; "C API" ljust at 4pt right of last arrow
+box with .n at last arrow.s same "Pikchr" "Formatter" "(pikchr.c)" mono fit
 ```
 
     ``` pikchr
@@ -26,9 +25,8 @@ box same "Pikchr" "Formatter" "(pikchr.c)" mono fit
     arrow same "Markdown+SVG" "Intermediate"
     box same "Any Markdown" "Formatter" fit
     arrow same "HTML+SVG" "Output"
-    arrow <-> down from Tool.s
-    box same "Pikchr" "Formatter" "(pikchr.c)" mono fit
-    "C API" ljust at 4pt right of last arrow
+    arrow <-> down from Tool.s; "C API" ljust at 4pt right of last arrow
+    box with .n at last arrow.s same "Pikchr" "Formatter" "(pikchr.c)" mono fit
     ```
 
 GitHub doesn’t allow inline SVGs, so here’s the above diagram as an external

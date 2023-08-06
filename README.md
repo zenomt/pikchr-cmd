@@ -7,7 +7,7 @@ It’s intended for use with your favorite Markdown processor, but can be used
 standalone or with other markup languages too.
 
 This tool uses the [C reference implementation of Pikchr by Richard Hipp][DRH]
-which is included here for convenience, as permitted by its generous license.
+which is included here for convenience (as permitted by its generous license).
 
 <div style="max-width:755px"><svg xmlns='http://www.w3.org/2000/svg' viewBox="0 0 755.453 217.44">
 <polygon points="164.16,37.44 152.64,41.76 152.64,33.12" style="fill:rgb(0,0,0)"/>
@@ -32,11 +32,11 @@ which is included here for convenience, as permitted by its generous license.
 <polygon points="225.562,72.72 229.882,84.24 221.242,84.24" style="fill:rgb(0,0,0)"/>
 <polygon points="225.562,144.72 221.242,133.2 229.882,133.2" style="fill:rgb(0,0,0)"/>
 <path d="M225.562,78.48L225.562,138.96"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="233.562" y="108.72" text-anchor="start" fill="rgb(0,0,0)" dominant-baseline="central">C API</text>
 <path d="M180.07,215.28L271.054,215.28A7.5 7.5 0 0 0 278.554 207.78L278.554,152.22A7.5 7.5 0 0 0 271.054 144.72L180.07,144.72A7.5 7.5 0 0 0 172.57 152.22L172.57,207.78A7.5 7.5 0 0 0 180.07 215.28Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
 <text x="225.562" y="159.84" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Pikchr</text>
 <text x="225.562" y="180" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Formatter</text>
 <text x="225.562" y="200.16" text-anchor="middle" font-family="monospace" fill="rgb(0,0,0)" dominant-baseline="central">(pikchr.c)</text>
-<text x="233.562" y="108.72" text-anchor="start" fill="rgb(0,0,0)" dominant-baseline="central">C API</text>
 </svg>
 </div>
 
@@ -47,9 +47,8 @@ which is included here for convenience, as permitted by its generous license.
     arrow same "Markdown+SVG" "Intermediate"
     box same "Any Markdown" "Formatter" fit
     arrow same "HTML+SVG" "Output"
-    arrow <-> down from Tool.s
-    box same "Pikchr" "Formatter" "(pikchr.c)" mono fit
-    "C API" ljust at 4pt right of last arrow
+    arrow <-> down from Tool.s; "C API" ljust at 4pt right of last arrow
+    box with .n at last arrow.s same "Pikchr" "Formatter" "(pikchr.c)" mono fit
     ```
 
 GitHub doesn’t allow inline SVGs, so here’s the above diagram as an external
