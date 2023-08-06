@@ -80,7 +80,7 @@ implementation repository includes a ready-to-use C source file; the
 submodule doesn’t require its own build step.
 
     $ git clone --recurse-submodules https://github.com/zenomt/pikchr-cmd
-    $ cd pikchr
+    $ cd pikchr-cmd
     $ make
     $ ./pikchr -h
 
