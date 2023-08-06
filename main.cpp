@@ -35,6 +35,8 @@ static int usage(const char *name, int rv, const char *msg = nullptr, const char
 	printf("  -b          -- set bare mode, don't wrap in a <div> to style max-width\n");
 	printf("  -p          -- output plaintext error messages instead of HTML\n");
 	printf("  -d          -- set dark mode\n");
+	printf("  -q          -- don't copy non-diagram input to output\n");
+	printf("  -n #        -- only translate diagram number # (starting at 1)\n");
 	printf("  -h          -- print this help\n");
 
 	return rv;
@@ -45,12 +47,14 @@ int main(int argc, char **argv)
 	int ch;
 	const char *svgClass = nullptr;
 	bool bareMode = false;
+	bool quietMode = false;
 	unsigned int plaintextErrors = 0;
 	unsigned int darkmode = 0;
 	unsigned int flags = 0;
+	size_t onlyDiagramNumber = 0;
 	int rv = 0;
 
-	while((ch = getopt(argc, argv, "c:bpdh")) != -1)
+	while((ch = getopt(argc, argv, "c:bpdqn:h")) != -1)
 	{
 		switch(ch)
 		{
@@ -68,6 +72,14 @@ int main(int argc, char **argv)
 
 		case 'd':
 			darkmode = PIKCHR_DARK_MODE;
+			break;
+
+		case 'q':
+			quietMode = true;
+			break;
+
+		case 'n':
+			onlyDiagramNumber = atol(optarg);
 			break;
 
 		case 'h':
@@ -89,6 +101,7 @@ int main(int argc, char **argv)
 	ssize_t linelen;
 	bool accumulating = false;
 	std::string accumulator;
+	size_t diagramNumber = 0;
 
 	while((linelen = getline(&line, &linecapp, stdin)))
 	{
@@ -105,27 +118,32 @@ int main(int argc, char **argv)
 			{
 				accumulating = false;
 
-				int width = 0;
-				int height = 0;
-
-				char * svg = pikchr(accumulator.data(), svgClass, flags, &width, &height);
-
-				if(width < 0)
+				if((diagramNumber == onlyDiagramNumber) or not onlyDiagramNumber)
 				{
-					rv = 1;
-					printf("%s\n\n", svg);
-				}
-				else
-				{
-					if(not bareMode)
-						printf("<div style=\"max-width:%dpx\">", width);
-					printf("%s", svg);
-					if(not bareMode)
-						printf("</div>");
-					printf("\n\n");
-				}
+					int width = 0;
+					int height = 0;
 
-				free(svg);
+					char * svg = pikchr(accumulator.data(), svgClass, flags, &width, &height);
+					if(svg)
+					{
+						if(width < 0)
+						{
+							rv = 1;
+							printf("%s\n\n", svg);
+						}
+						else
+						{
+							if(not bareMode)
+								printf("<div style=\"max-width:%dpx\">", width);
+							printf("%s", svg);
+							if(not bareMode)
+								printf("</div>");
+							printf("\n\n");
+						}
+
+						free(svg);
+					}
+				}
 				accumulator.clear();
 			}
 			else
@@ -137,15 +155,17 @@ int main(int argc, char **argv)
 				break;
 
 			if(std::regex_match(line, line + linelen, startPattern))
+			{
 				accumulating = true;
-			else if(fwrite(line, linelen, 1, stdout) < 1)
+				diagramNumber++;
+			}
+			else if((not quietMode) and (fwrite(line, linelen, 1, stdout) < 1))
 			{
 				perror("writing to stdout");
 				rv = 1;
 				break;
 			}
 		}
-
 	}
 
 	free(line);
