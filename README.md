@@ -49,7 +49,7 @@ which is included here for convenience, as permitted by its generous license.
     arrow same "HTML+SVG" "Output"
     arrow <-> down from Tool.s
     box same "Pikchr" "Formatter" "(pikchr.c)" mono fit
-    "C API" ljust at 4pt right of last arrow.w
+    "C API" ljust at 4pt right of last arrow
     ```
 
 GitHub doesn’t allow inline SVGs, so here’s the above diagram as an external
