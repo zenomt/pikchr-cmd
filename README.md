@@ -52,7 +52,8 @@ Example: Intermediate file
     $ pikchr < README.md.in > README.md
     $ Markdown.pl < README.md > README.html
 
-Example: Extract first diagram to a separate SVG file called `usage.svg`
+Example: Compile the first diagram in `README.md.in` to a separate SVG file
+called `usage.svg`
 
     $ pikchr -qb -n 1 < README.md.in > usage.svg
 
@@ -64,8 +65,7 @@ A Pikchr diagram starts with a line beginning with any of the following strings:
 * `~~~ pikchr`
 * `.PS`
 
-and ends with the next line that is exactly of any of the following
-strings:
+and ends with the next line that is any of the following strings exactly:
 
 * <code>```</code>
 * `~~~`
