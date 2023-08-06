@@ -8,27 +8,69 @@
 // Pikchr's home page: https://pikchr.org/
 // GitHub mirror: https://github.com/drhsqlite/pikchr
 
-#include <regex>
-#include <string>
-
 extern "C" {
 
+#include <iso646.h>
+#include <regex.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 
 #include "drhsqlite-pikchr/pikchr.h"
 
 }
 
-static int usage(const char *name, int rv, const char *msg = nullptr, const char *arg = nullptr)
+struct buffer_t {
+	char *buf;
+	size_t capacity;
+	size_t offset;
+};
+
+static int bufferAppend(buffer_t *buffer, char *str, size_t len)
+{
+	if(buffer->offset + len >= buffer->capacity)
+	{
+		while(buffer->offset + len >= buffer->capacity)
+			buffer->capacity *= 2;
+		buffer->buf = (char *)realloc(buffer->buf, buffer->capacity);
+		if(not buffer->buf)
+			return 1;
+	}
+
+	memcpy(buffer->buf + buffer->offset, str, len);
+	buffer->offset += len;
+	buffer->buf[buffer->offset] = 0;
+
+	return 0;
+}
+
+static void bufferErase(buffer_t *buffer)
+{
+	buffer->offset = 0;
+	buffer->buf[0] = 0;
+}
+
+static void bufferInit(buffer_t *buffer, size_t initialCapacity)
+{
+	buffer->capacity = initialCapacity;
+	if(0 == buffer->capacity)
+		buffer->capacity = 1;
+	buffer->buf = (char *)malloc(buffer->capacity);
+	bufferErase(buffer);
+}
+
+static void bufferFree(buffer_t *buffer)
+{
+	free(buffer->buf);
+	buffer->buf = 0;
+}
+
+static int usage(const char *name, int rv, const char *msg)
 {
 	if(msg)
-		printf("%s", msg);
-	if(arg)
-		printf("%s", arg);
-	if(msg or arg)
-		printf("\n");
+		printf("%s\n", msg);
 
 	printf("usage: %s [options]\n", name);
 	printf("  -c aClass   -- add class=\"aClass\" to <svg> tags\n");
@@ -46,7 +88,7 @@ static int usage(const char *name, int rv, const char *msg = nullptr, const char
 int main(int argc, char **argv)
 {
 	int ch;
-	const char *svgClass = nullptr;
+	const char *svgClass = NULL;
 	bool bareMode = false;
 	bool includeDocument = true;
 	bool includeDiagrams = true;
@@ -90,7 +132,7 @@ int main(int argc, char **argv)
 
 		case 'h':
 		default:
-			return usage(argv[0], 'h' != ch);
+			return usage(argv[0], 'h' != ch, NULL);
 		}
 	}
 
@@ -99,15 +141,22 @@ int main(int argc, char **argv)
 
 	flags = flags | plaintextErrors | darkmode;
 
-	auto startPattern = std::regex("^((\\.PS)|(((```)|(~~~))\\s*pikchr(\\s.*)?))\\s*$");
-	auto endPattern = std::regex("^((\\.PE)|(```)|(~~~))\\s*$");
+	regex_t startPattern;
+	regex_t endPattern;
+
+	if( regcomp(&startPattern, "^((\\.PS)|(((```)|(~~~))[[:space:]]*pikchr([[:space:]].*)?))[[:space:]]*$", REG_EXTENDED | REG_NOSUB)
+	 or regcomp(&endPattern, "^((\\.PE)|(```)|(~~~))[[:space:]]*$", REG_EXTENDED | REG_NOSUB)
+	)
+		abort();
 
 	size_t linecapp = 8192;
-	char * line = (char *)malloc(linecapp);
+	char *line = (char *)malloc(linecapp);
 	ssize_t linelen;
 	bool accumulating = false;
-	std::string accumulator;
 	size_t diagramNumber = 0;
+
+	buffer_t accumulator;
+	bufferInit(&accumulator, 8);
 
 	while((linelen = getline(&line, &linecapp, stdin)))
 	{
@@ -120,7 +169,7 @@ int main(int argc, char **argv)
 
 		if(accumulating)
 		{
-			if(feof(stdin) or std::regex_match(line, line + linelen, endPattern))
+			if(feof(stdin) or (0 == regexec(&endPattern, line, 0, NULL, 0)))
 			{
 				accumulating = false;
 
@@ -129,7 +178,7 @@ int main(int argc, char **argv)
 					int width = 0;
 					int height = 0;
 
-					char * svg = pikchr(accumulator.data(), svgClass, flags, &width, &height);
+					char * svg = pikchr(accumulator.buf, svgClass, flags, &width, &height);
 					if(svg)
 					{
 						if(width < 0)
@@ -150,17 +199,17 @@ int main(int argc, char **argv)
 						free(svg);
 					}
 				}
-				accumulator.clear();
+				bufferErase(&accumulator);
 			}
 			else
-				accumulator.append(line, linelen);
+				bufferAppend(&accumulator, line, linelen);
 		}
 		else
 		{
 			if(feof(stdin))
 				break;
 
-			if(std::regex_match(line, line + linelen, startPattern))
+			if(0 == regexec(&startPattern, line, 0, NULL, 0))
 			{
 				accumulating = true;
 				diagramNumber++;
@@ -174,6 +223,7 @@ int main(int argc, char **argv)
 		}
 	}
 
+	bufferFree(&accumulator);
 	free(line);
 
 	return rv;
