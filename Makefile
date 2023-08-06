@@ -7,9 +7,6 @@ pikchr: main.o pikchr.o
 	rm -f $@
 	$(CC) -o $@ $+ -lm
 
-pikchr.o: drhsqlite-pikchr/pikchr.c
-	$(CC) $(CFLAGS) -c -o pikchr.o $+
-
 README.md: README.md.in pikchr
 	./pikchr < README.md.in > README.md
 

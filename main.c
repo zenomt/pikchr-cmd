@@ -16,7 +16,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "drhsqlite-pikchr/pikchr.h"
+#include "pikchr.h"
 
 typedef struct {
 	char   *buf;
