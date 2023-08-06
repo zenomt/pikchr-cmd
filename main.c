@@ -152,7 +152,7 @@ int main(int argc, char **argv)
 	size_t diagramNumber = 0;
 
 	buffer_t accumulator;
-	bufferInit(&accumulator, 8);
+	bufferInit(&accumulator, 8192);
 
 	while((linelen = getline(&line, &linecapp, stdin)))
 	{
