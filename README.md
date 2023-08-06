@@ -38,6 +38,10 @@ but can be used standalone or with other markup languages too.
     arrow same "HTML+SVG" "Output"
     ```
 
+GitHub doesn’t allow inline SVGs, so here’s the above diagram as an external image:
+
+<img width="700px" src="usage.svg"/>
+
 Example (pipeline):
 
     $ pikchr < file.md | Markdown.pl > README.html
@@ -46,6 +50,10 @@ Example (intermediate file):
 
     $ pikchr < README.md.in > README.md
     $ Markdown.pl < README.md > README.html
+
+Example (extract first diagram to a separate SVG file called `usage.svg`):
+
+    $ pikchr -q -b -n 1 < README.md.in > usage.svg
 
 Delimiters
 ----------

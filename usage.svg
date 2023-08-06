@@ -1,0 +1,22 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox="0 0 700.848 54.72">
+<polygon points="164.16,27.36 152.64,31.68 152.64,23.04" style="fill:rgb(0,0,0)"/>
+<path d="M2.16,27.36L158.4,27.36"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="83.16" y="15.66" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Markdown+Pikchr</text>
+<text x="83.16" y="39.06" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Source</text>
+<path d="M171.66,52.56L224.858,52.56A7.5 7.5 0 0 0 232.358 45.06L232.358,9.66A7.5 7.5 0 0 0 224.858 2.16L171.66,2.16A7.5 7.5 0 0 0 164.16 9.66L164.16,45.06A7.5 7.5 0 0 0 171.66 52.56Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="198.259" y="17.28" text-anchor="middle" font-family="monospace" fill="rgb(0,0,0)" dominant-baseline="central">pikchr</text>
+<text x="198.259" y="37.44" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Filter</text>
+<polygon points="394.358,27.36 382.838,31.68 382.838,23.04" style="fill:rgb(0,0,0)"/>
+<path d="M232.358,27.36L388.598,27.36"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="313.358" y="15.66" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Markdown+SVG</text>
+<text x="313.358" y="39.06" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Intermediate</text>
+<path d="M401.858,52.56L524.868,52.56A7.5 7.5 0 0 0 532.368 45.06L532.368,9.66A7.5 7.5 0 0 0 524.868 2.16L401.858,2.16A7.5 7.5 0 0 0 394.358 9.66L394.358,45.06A7.5 7.5 0 0 0 401.858 52.56Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="463.363" y="17.28" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Any Markdown</text>
+<text x="463.363" y="37.44" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Formatter</text>
+<polygon points="694.368,27.36 682.848,31.68 682.848,23.04" style="fill:rgb(0,0,0)"/>
+<path d="M532.368,27.36L688.608,27.36"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="613.368" y="15.66" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">HTML+SVG</text>
+<text x="613.368" y="39.06" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Output</text>
+</svg>
+
+

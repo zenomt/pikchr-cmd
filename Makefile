@@ -2,7 +2,7 @@ CXXFLAGS = -Os -std=c++11 -Wall -pedantic
 CFLAGS = -Os -Wall -pedantic
 
 default: pikchr
-all: default README.md
+all: default README.md usage.svg
 
 pikchr: main.o pikchr.o
 	rm -f $@
@@ -13,6 +13,9 @@ pikchr.o: drhsqlite-pikchr/pikchr.c
 
 README.md: README.md.in pikchr
 	./pikchr < README.md.in > README.md
+
+usage.svg: README.md.in pikchr
+	./pikchr -qb -n 1 < README.md.in > usage.svg
 
 clean:
 	rm -f pikchr *.o
