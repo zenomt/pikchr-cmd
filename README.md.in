@@ -1,7 +1,7 @@
 Pikchr Command-Line Driver
 ==========================
-This program is a Unix Way™ pipeline-friendly command-line driver for the
-[C reference implementation][DRH] of [Pikchr][], a [PIC][]-like diagram
+This program is a [Unix Way™][Unix] pipeline-friendly command-line driver for
+the [C reference implementation][DRH] of [Pikchr][], a [PIC][]-like diagram
 language. It reads text from the standard input, replacing suitably-delimited
 Pikchr diagrams with inline Scalable Vector Graphics (SVG), and writes to the
 standard output. It’s intended for use with your favorite Markdown processor,
@@ -89,3 +89,4 @@ submodule doesn’t require its own build step.
   [Pikchr]: https://pikchr.org/
   [PIC]: https://en.wikipedia.org/wiki/PIC_(markup_language)
   [fenced]: https://spec.commonmark.org/0.30/#fenced-code-blocks
+  [Unix]: https://en.wikipedia.org/wiki/Unix_philosophy
