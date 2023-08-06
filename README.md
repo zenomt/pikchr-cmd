@@ -38,22 +38,23 @@ but can be used standalone or with other markup languages too.
     arrow same "HTML+SVG" "Output"
     ```
 
-GitHub doesn’t allow inline SVGs, so here’s the above diagram as an external image:
+GitHub doesn’t allow inline SVGs, so here’s the above diagram as an external
+image reference:
 
 <img width="700px" src="usage.svg"/>
 
-Example (pipeline):
+Example: Pipeline
 
     $ pikchr < file.md | Markdown.pl > file.html
 
-Example (intermediate file):
+Example: Intermediate file
 
     $ pikchr < README.md.in > README.md
     $ Markdown.pl < README.md > README.html
 
-Example (extract first diagram to a separate SVG file called `usage.svg`):
+Example: Extract first diagram to a separate SVG file called `usage.svg`
 
-    $ pikchr -q -b -n 1 < README.md.in > usage.svg
+    $ pikchr -qb -n 1 < README.md.in > usage.svg
 
 Delimiters
 ----------
@@ -93,7 +94,7 @@ sure to load submodules when cloning this repository. Note the reference
 implementation repository includes a ready-to-use C source file; the
 submodule doesn’t require its own build step.
 
-    $ git clone --recurse-submodules https://github.com/zenomt/pikchr
+    $ git clone --recurse-submodules https://github.com/zenomt/pikchr-cmd
     $ cd pikchr
     $ make
     $ ./pikchr -h
