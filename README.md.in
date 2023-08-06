@@ -1,32 +1,40 @@
 Pikchr Command-Line Driver
 ==========================
-[This program][] is a [Unix Way™][Unix] pipeline-friendly command-line driver
-for the [C reference implementation][DRH] of [Pikchr][], a [PIC][]-like diagram
-language. This tool reads text from the standard input, replacing suitably-delimited
-Pikchr diagrams with inline Scalable Vector Graphics (SVG), and writes to the
-standard output. It’s intended for use with your favorite Markdown processor,
-but can be used standalone or with other markup languages too.
+[This preprocessor tool][repo] reads text from the standard input, [replacing][Unix]
+suitably-delimited [Pikchr][] diagrams (a [PIC][]-like diagram language) with
+inline Scalable Vector Graphics (SVG), and writes to the standard output.
+It’s intended for use with your favorite Markdown processor, but can be used
+standalone or with other markup languages too.
+
+This tool uses the [C reference implementation of Pikchr by Richard Hipp][DRH]
+which is included here for convenience, as permitted by its generous license.
 
 ``` pikchr
 arrow right 225% "Markdown+Pikchr" "Source"
-box rad 5px "pikchr" mono "Filter" fit
+Tool: box rad 5px "pikchr" mono "Preprocessor" "(main.c)" mono fit
 arrow same "Markdown+SVG" "Intermediate"
 box same "Any Markdown" "Formatter" fit
 arrow same "HTML+SVG" "Output"
+arrow <-> down from Tool.s
+box same "Pikchr" "Formatter" "(pikchr.c)" mono fit
+"C API" ljust at 4pt right of last arrow.w
 ```
 
     ``` pikchr
     arrow right 225% "Markdown+Pikchr" "Source"
-    box rad 5px "pikchr" mono "Filter" fit
+    Tool: box rad 5px "pikchr" mono "Preprocessor" "(main.c)" mono fit
     arrow same "Markdown+SVG" "Intermediate"
     box same "Any Markdown" "Formatter" fit
     arrow same "HTML+SVG" "Output"
+    arrow <-> down from Tool.s
+    box same "Pikchr" "Formatter" "(pikchr.c)" mono fit
+    "C API" ljust at 4pt right of last arrow.w
     ```
 
 GitHub doesn’t allow inline SVGs, so here’s the above diagram as an external
 image reference:
 
-<img width="700px" src="usage.svg"/>
+<img width="755px" src="usage.svg"/>
 
 Example: Pipeline
 
@@ -73,13 +81,8 @@ Building
     $ make all
     $ ./pikchr -h
 
-Acknowledgement
----------------
-The [C reference implementation of Pikchr by Richard Hipp][DRH] is included
-here for convenience, as permitted by its license.
 
-
-  [This program]: https://github.com/zenomt/pikchr-cmd
+  [repo]: https://github.com/zenomt/pikchr-cmd
   [DRH]: https://github.com/drhsqlite/pikchr
   [Pikchr]: https://pikchr.org/
   [PIC]: https://en.wikipedia.org/wiki/PIC_(markup_language)

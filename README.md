@@ -1,47 +1,61 @@
 Pikchr Command-Line Driver
 ==========================
-[This program][] is a [Unix Way™][Unix] pipeline-friendly command-line driver
-for the [C reference implementation][DRH] of [Pikchr][], a [PIC][]-like diagram
-language. This tool reads text from the standard input, replacing suitably-delimited
-Pikchr diagrams with inline Scalable Vector Graphics (SVG), and writes to the
-standard output. It’s intended for use with your favorite Markdown processor,
-but can be used standalone or with other markup languages too.
+[This preprocessor tool][repo] reads text from the standard input, [replacing][Unix]
+suitably-delimited [Pikchr][] diagrams (a [PIC][]-like diagram language) with
+inline Scalable Vector Graphics (SVG), and writes to the standard output.
+It’s intended for use with your favorite Markdown processor, but can be used
+standalone or with other markup languages too.
 
-<div style="max-width:700px"><svg xmlns='http://www.w3.org/2000/svg' viewBox="0 0 700.848 54.72">
-<polygon points="164.16,27.36 152.64,31.68 152.64,23.04" style="fill:rgb(0,0,0)"/>
-<path d="M2.16,27.36L158.4,27.36"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
-<text x="83.16" y="15.66" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Markdown+Pikchr</text>
-<text x="83.16" y="39.06" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Source</text>
-<path d="M171.66,52.56L224.858,52.56A7.5 7.5 0 0 0 232.358 45.06L232.358,9.66A7.5 7.5 0 0 0 224.858 2.16L171.66,2.16A7.5 7.5 0 0 0 164.16 9.66L164.16,45.06A7.5 7.5 0 0 0 171.66 52.56Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
-<text x="198.259" y="17.28" text-anchor="middle" font-family="monospace" fill="rgb(0,0,0)" dominant-baseline="central">pikchr</text>
-<text x="198.259" y="37.44" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Filter</text>
-<polygon points="394.358,27.36 382.838,31.68 382.838,23.04" style="fill:rgb(0,0,0)"/>
-<path d="M232.358,27.36L388.598,27.36"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
-<text x="313.358" y="15.66" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Markdown+SVG</text>
-<text x="313.358" y="39.06" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Intermediate</text>
-<path d="M401.858,52.56L524.868,52.56A7.5 7.5 0 0 0 532.368 45.06L532.368,9.66A7.5 7.5 0 0 0 524.868 2.16L401.858,2.16A7.5 7.5 0 0 0 394.358 9.66L394.358,45.06A7.5 7.5 0 0 0 401.858 52.56Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
-<text x="463.363" y="17.28" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Any Markdown</text>
-<text x="463.363" y="37.44" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Formatter</text>
-<polygon points="694.368,27.36 682.848,31.68 682.848,23.04" style="fill:rgb(0,0,0)"/>
-<path d="M532.368,27.36L688.608,27.36"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
-<text x="613.368" y="15.66" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">HTML+SVG</text>
-<text x="613.368" y="39.06" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Output</text>
+This tool uses the [C reference implementation of Pikchr by Richard Hipp][DRH]
+which is included here for convenience, as permitted by its generous license.
+
+<div style="max-width:755px"><svg xmlns='http://www.w3.org/2000/svg' viewBox="0 0 755.453 217.44">
+<polygon points="164.16,37.44 152.64,41.76 152.64,33.12" style="fill:rgb(0,0,0)"/>
+<path d="M2.16,37.44L158.4,37.44"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="83.16" y="25.74" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Markdown+Pikchr</text>
+<text x="83.16" y="49.14" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Source</text>
+<path d="M171.66,72.72L279.463,72.72A7.5 7.5 0 0 0 286.963 65.22L286.963,9.66A7.5 7.5 0 0 0 279.463 2.16L171.66,2.16A7.5 7.5 0 0 0 164.16 9.66L164.16,65.22A7.5 7.5 0 0 0 171.66 72.72Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="225.562" y="17.28" text-anchor="middle" font-family="monospace" fill="rgb(0,0,0)" dominant-baseline="central">pikchr</text>
+<text x="225.562" y="37.44" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Preprocessor</text>
+<text x="225.562" y="57.6" text-anchor="middle" font-family="monospace" fill="rgb(0,0,0)" dominant-baseline="central">(main.c)</text>
+<polygon points="448.963,37.44 437.443,41.76 437.443,33.12" style="fill:rgb(0,0,0)"/>
+<path d="M286.963,37.44L443.203,37.44"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="367.963" y="25.74" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Markdown+SVG</text>
+<text x="367.963" y="49.14" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Intermediate</text>
+<path d="M456.463,62.64L579.473,62.64A7.5 7.5 0 0 0 586.973 55.14L586.973,19.74A7.5 7.5 0 0 0 579.473 12.24L456.463,12.24A7.5 7.5 0 0 0 448.963 19.74L448.963,55.14A7.5 7.5 0 0 0 456.463 62.64Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="517.968" y="27.36" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Any Markdown</text>
+<text x="517.968" y="47.52" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Formatter</text>
+<polygon points="748.973,37.44 737.453,41.76 737.453,33.12" style="fill:rgb(0,0,0)"/>
+<path d="M586.973,37.44L743.213,37.44"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="667.973" y="25.74" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">HTML+SVG</text>
+<text x="667.973" y="49.14" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Output</text>
+<polygon points="225.562,72.72 229.882,84.24 221.242,84.24" style="fill:rgb(0,0,0)"/>
+<polygon points="225.562,144.72 221.242,133.2 229.882,133.2" style="fill:rgb(0,0,0)"/>
+<path d="M225.562,78.48L225.562,138.96"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<path d="M180.07,215.28L271.054,215.28A7.5 7.5 0 0 0 278.554 207.78L278.554,152.22A7.5 7.5 0 0 0 271.054 144.72L180.07,144.72A7.5 7.5 0 0 0 172.57 152.22L172.57,207.78A7.5 7.5 0 0 0 180.07 215.28Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="225.562" y="159.84" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Pikchr</text>
+<text x="225.562" y="180" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Formatter</text>
+<text x="225.562" y="200.16" text-anchor="middle" font-family="monospace" fill="rgb(0,0,0)" dominant-baseline="central">(pikchr.c)</text>
+<text x="233.562" y="108.72" text-anchor="start" fill="rgb(0,0,0)" dominant-baseline="central">C API</text>
 </svg>
 </div>
 
 
     ``` pikchr
     arrow right 225% "Markdown+Pikchr" "Source"
-    box rad 5px "pikchr" mono "Filter" fit
+    Tool: box rad 5px "pikchr" mono "Preprocessor" "(main.c)" mono fit
     arrow same "Markdown+SVG" "Intermediate"
     box same "Any Markdown" "Formatter" fit
     arrow same "HTML+SVG" "Output"
+    arrow <-> down from Tool.s
+    box same "Pikchr" "Formatter" "(pikchr.c)" mono fit
+    "C API" ljust at 4pt right of last arrow.w
     ```
 
 GitHub doesn’t allow inline SVGs, so here’s the above diagram as an external
 image reference:
 
-<img width="700px" src="usage.svg"/>
+<img width="755px" src="usage.svg"/>
 
 Example: Pipeline
 
@@ -88,13 +102,8 @@ Building
     $ make all
     $ ./pikchr -h
 
-Acknowledgement
----------------
-The [C reference implementation of Pikchr by Richard Hipp][DRH] is included
-here for convenience, as permitted by its license.
 
-
-  [This program]: https://github.com/zenomt/pikchr-cmd
+  [repo]: https://github.com/zenomt/pikchr-cmd
   [DRH]: https://github.com/drhsqlite/pikchr
   [Pikchr]: https://pikchr.org/
   [PIC]: https://en.wikipedia.org/wiki/PIC_(markup_language)
