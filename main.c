@@ -8,6 +8,7 @@
 // Pikchr's home page: https://pikchr.org/
 // GitHub mirror: https://github.com/drhsqlite/pikchr
 
+#include <ctype.h>
 #include <iso646.h>
 #include <regex.h>
 #include <stdbool.h>
@@ -63,12 +64,31 @@ static void bufferFree(buffer_t *buffer)
 	buffer->buf = 0;
 }
 
+static const char * strword(const char *haystack, const char *needle)
+{
+	const char *rv;
+	const char *cursor = haystack;
+	size_t len = strlen(needle);
+
+	while((rv = strstr(cursor, needle)))
+	{
+		if((rv == haystack) or isspace(rv[-1]))
+		{
+			if((0 == rv[len]) or isspace(rv[len]))
+				return rv;
+		}
+		cursor += len ? len : 1;
+	}
+
+	return NULL;
+}
+
 static int usage(const char *name, int rv, const char *msg)
 {
 	if(msg)
 		printf("%s\n", msg);
 
-	printf("usage: %s [options]\n", name);
+	printf("Usage: %s [options]\n", name);
 	printf("  -c aClass   -- add class=\"aClass\" to <svg> tags\n");
 	printf("  -b          -- bare mode, don't wrap <svg> in <div> to style max-width\n");
 	printf("  -p          -- output plaintext error messages instead of HTML\n");
@@ -76,7 +96,14 @@ static int usage(const char *name, int rv, const char *msg)
 	printf("  -q          -- don't copy non-diagram input to output\n");
 	printf("  -Q          -- remove all diagrams\n");
 	printf("  -n #        -- only translate diagram number # (starting from 1)\n");
+	printf("  -N mod      -- only translate the first diagram that has modifier mod\n");
 	printf("  -h          -- print this help\n");
+	printf("\n");
+	printf("Zero or more modifiers can follow the start delimiter. Unrecognized\n");
+	printf("modifiers are ignored (but can be matched with -N). Known modifiers:\n");
+	printf("\n");
+	printf("  svg-only    -- bare mode, don't wrap this <svg> in <div> to style max-width\n");
+	printf("\n");
 
 	return rv;
 }
@@ -85,6 +112,7 @@ int main(int argc, char **argv)
 {
 	int ch;
 	const char *svgClass = NULL;
+	const char *onlyModifier = NULL;
 	bool bareMode = false;
 	bool includeDocument = true;
 	bool includeDiagrams = true;
@@ -94,7 +122,7 @@ int main(int argc, char **argv)
 	size_t onlyDiagramNumber = 0;
 	int rv = 0;
 
-	while((ch = getopt(argc, argv, "c:bpdqQn:h")) != -1)
+	while((ch = getopt(argc, argv, "c:bpdqQn:N:h")) != -1)
 	{
 		switch(ch)
 		{
@@ -124,6 +152,12 @@ int main(int argc, char **argv)
 
 		case 'n':
 			onlyDiagramNumber = atol(optarg);
+			onlyModifier = NULL;
+			break;
+
+		case 'N':
+			onlyModifier = optarg;
+			onlyDiagramNumber = -1;
 			break;
 
 		case 'h':
@@ -140,8 +174,8 @@ int main(int argc, char **argv)
 	regex_t startPattern;
 	regex_t endPattern;
 
-	if( regcomp(&startPattern, "^((\\.PS)|(((```)|(~~~))[[:space:]]*pikchr([[:space:]].*)?))[[:space:]]*$", REG_EXTENDED | REG_NOSUB)
-	 or regcomp(&endPattern, "^((\\.PE)|(```)|(~~~))[[:space:]]*$", REG_EXTENDED | REG_NOSUB)
+	if( regcomp(&startPattern, "^((\\.PS)|(((```+)|(~~~+))[[:space:]]*pikchr))([[:space:]].*)?$", REG_EXTENDED | REG_NOSUB)
+	 or regcomp(&endPattern, "^((\\.PE)|(```+)|(~~~+))[[:space:]]*$", REG_EXTENDED | REG_NOSUB)
 	)
 		abort();
 
@@ -152,6 +186,8 @@ int main(int argc, char **argv)
 
 	buffer_t accumulator;
 	bufferInit(&accumulator, 8192);
+
+	bool bareModeThisDiagram = bareMode;
 
 	while(true)
 	{
@@ -185,10 +221,10 @@ int main(int argc, char **argv)
 						}
 						else
 						{
-							if(not bareMode)
+							if(not bareModeThisDiagram)
 								printf("<div style=\"max-width:%dpx\">", width);
 							printf("%s", svg);
-							if(not bareMode)
+							if(not bareModeThisDiagram)
 								printf("</div>");
 							printf("\n\n");
 						}
@@ -210,6 +246,13 @@ int main(int argc, char **argv)
 			{
 				accumulating = true;
 				diagramNumber++;
+				bareModeThisDiagram = strword(line, "svg-only") ? true : bareMode;
+
+				if(onlyModifier and strword(line, onlyModifier))
+				{
+					diagramNumber = onlyDiagramNumber;
+					onlyModifier = NULL; // only the first match
+				}
 			}
 			else if(includeDocument and (fwrite(line, linelen, 1, stdout) < 1))
 			{

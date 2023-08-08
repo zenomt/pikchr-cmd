@@ -32,7 +32,7 @@ which is included here for convenience (as permitted by its generous license).
 <polygon points="225.562,72.72 229.882,84.24 221.242,84.24" style="fill:rgb(0,0,0)"/>
 <polygon points="225.562,144.72 221.242,133.2 229.882,133.2" style="fill:rgb(0,0,0)"/>
 <path d="M225.562,78.48L225.562,138.96"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
-<text x="233.562" y="108.72" text-anchor="start" fill="rgb(0,0,0)" dominant-baseline="central">C API</text>
+<text x="231.322" y="108.72" text-anchor="start" fill="rgb(0,0,0)" dominant-baseline="central">C API</text>
 <path d="M180.07,215.28L271.054,215.28A7.5 7.5 0 0 0 278.554 207.78L278.554,152.22A7.5 7.5 0 0 0 271.054 144.72L180.07,144.72A7.5 7.5 0 0 0 172.57 152.22L172.57,207.78A7.5 7.5 0 0 0 180.07 215.28Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
 <text x="225.562" y="159.84" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Pikchr</text>
 <text x="225.562" y="180" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Formatter</text>
@@ -41,14 +41,14 @@ which is included here for convenience (as permitted by its generous license).
 </div>
 
 
-    ``` pikchr
+    ``` pikchr @usage
     arrow right 225% "Markdown+Pikchr" "Source"
     Tool: box rad 5px "pikchr" mono "Preprocessor" "(main.c)" mono fit
     arrow same "Markdown+SVG" "Intermediate"
     box same "Any Markdown" "Formatter" fit
     arrow same "HTML+SVG" "Output"
-    arrow <-> down from Tool.s; "C API" ljust at 4pt right of last arrow
-    box with .n at last arrow.s same "Pikchr" "Formatter" "(pikchr.c)" mono fit
+    arrow <-> down from Tool.south; "C API" ljust at 0.5*charwid right of previous
+    box with .north at last arrow.end same "Pikchr" "Formatter" "(pikchr.c)" mono fit
     ```
 
 GitHub doesn’t allow inline SVGs, so here’s the above diagram as an external
@@ -65,35 +65,63 @@ Example: Intermediate file
     $ pikchr < README.md.in > README.md
     $ Markdown.pl < README.md > README.html
 
-Example: Compile the first diagram in `README.md.in` to a separate SVG file
-called `usage.svg`
+Example: Compile the diagram in `README.md.in` that is tagged with modifier
+“`@usage`” to a separate SVG file called `usage.svg`
 
-    $ pikchr -qb -n 1 < README.md.in > usage.svg
+    $ pikchr -qb -N @usage < README.md.in > usage.svg
 
 Delimiters
 ----------
-A Pikchr diagram starts with a line beginning with any of the following strings:
+A Pikchr diagram starts with a line beginning with any of the following strings
+_without indentation_:
 
-* <code>``` pikchr</code>
-* `~~~ pikchr`
-* `.PS`
+* Three or more consecutive `GRAVE ACCENT` backtick (<code>&#96;</code>)
+  characters, optional whitespace, the characters `pikchr`, and
+  whitespace or end-of-line; for example
+   - <code>```` pikchr</code>
+* Three or more consecutive `TILDE` (`~`) characters, optional whitespace,
+  the characters `pikchr`, and whitespace or end-of-line; for example
+   - `~~~pikchr`
+* The three characters `.PS` and whitespace or end-of-line (that is, the
+  traditional [PIC][] start delimiter)
+   - `.PS`
 
-and ends with the next line that is any of the following strings exactly (or
-the end of the file):
+and ends with the next line that is any of the following strings
+_without indentation_ (or the end of the file):
 
-* <code>```</code>
-* `~~~`
-* `.PE`
+* Three or more consecutive backtick characters and optional whitespace; for example
+   - <code>```</code>
+* Three or more consecutive `TILDE` characters and optional whitespace; for example
+   - `~~~~`
+* The three characters `.PE` and optional whitespace (that is, the traditional
+  [PIC][] end delimiter)
+   - `.PE`
 
 Anything not between a pair of start and end delimiters is copied to the
 standard output unchanged.
 
 Note that generic Markdown [fenced code blocks][fenced] can begin with three
-_or more_ `~` (`TILDE`) or <code>&#96;</code> (`GRAVE ACCENT` backtick)
-characters indented by up to three spaces, and continue to a matching fence.
-For simplicity, this tool is less flexible when looking for Pikchr diagrams,
-requiring exactly three unindented tildes or backticks (or the traditional
-[PIC][] delimiters).
+or more consecutive `TILDE` (`~`) or backtick (<code>&#96;</code>) characters
+optionally indented by up to three spaces, and continue to a fence of the
+same type (tilde or backtick), optionally indented by up to three spaces, and
+_at least as long_. For simplicity, when looking for Pikchr diagrams, this
+tool doesn’t require the end delimiter to be of the same type or to be at
+least as long as the start delimiter. This tool doesn’t recognize indented
+start and end delimiters in order to easily accommodate displaying Pikchr
+code itself by using an indented fenced code block.
+
+### Start Delimiter Modifiers
+
+Any number of whitespace-delimited modifier strings can follow the start
+delimiter prefix on the same line. Modifiers can change the behavior of the
+Pikchr formatter for just that diagram. Unrecognized modifiers are ignored,
+but can be matched by the `-N` command-line option (use `-h` to see all of
+the available options). The following modifier is recognized:
+
+* `svg-only`: Output the `<svg>` tag without wrapping it in a `<div>`. By default
+  (unless command-line option `-b` is given) each diagram is enclosed in a
+  `<div>` styled with `max-width` set to the diagram’s width, so it won’t
+  expand to the width of the page (which is usually not desired).
 
 Building
 --------
