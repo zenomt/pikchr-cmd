@@ -77,7 +77,7 @@ static const char * strword(const char *haystack, const char *needle)
 			if((0 == rv[len]) or isspace(rv[len]))
 				return rv;
 		}
-		cursor += len ? len : 1;
+		cursor++;
 	}
 
 	return NULL;
@@ -96,7 +96,7 @@ static int usage(const char *name, int rv, const char *msg)
 	printf("  -q          -- don't copy non-diagram input to output\n");
 	printf("  -Q          -- remove all diagrams\n");
 	printf("  -n #        -- only translate diagram number # (starting from 1)\n");
-	printf("  -N mod      -- only translate the first diagram that has modifier mod\n");
+	printf("  -N mod      -- only translate diagrams that have modifier mod\n");
 	printf("  -h          -- print this help\n");
 	printf("\n");
 	printf("Zero or more modifiers can follow the start delimiter. Unrecognized\n");
@@ -249,10 +249,7 @@ int main(int argc, char **argv)
 				bareModeThisDiagram = strword(line, "svg-only") ? true : bareMode;
 
 				if(onlyModifier and strword(line, onlyModifier))
-				{
 					diagramNumber = onlyDiagramNumber;
-					onlyModifier = NULL; // only the first match
-				}
 			}
 			else if(includeDocument and (fwrite(line, linelen, 1, stdout) < 1))
 			{

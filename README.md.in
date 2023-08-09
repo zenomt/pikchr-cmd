@@ -46,7 +46,7 @@ Example: Intermediate file
 Example: Compile the diagram in `README.md.in` that is tagged with modifier
 “`@usage`” to a separate SVG file called `usage.svg`
 
-    $ pikchr -qb -N @usage < README.md.in > usage.svg
+    $ pikchr -q -b -N @usage < README.md.in > usage.svg
 
 Delimiters
 ----------
@@ -128,7 +128,7 @@ The following command line options are recognized:
 * <code>-n <i>num</i></code>  
   Only translate diagram number _num_ to SVG. Diagrams are numbered starting from 1.  This is usually used along with `-q` and `-b` when generating a standalone SVG file. Note that this method is brittle, consider using `-N` instead.
 * <code>-N <i>mod-string</i></code>  
-  Only translate the first diagram that has _mod-string_ as one of its [start delimiter modifiers](#start-delimiter-modifiers). This is usually used along with `-q` and `-b` when generating a standalone SVG file.
+  Only translate diagrams that have _mod-string_ as one of their [start delimiter modifiers](#start-delimiter-modifiers). This is usually used along with `-q` and `-b` when generating a standalone SVG file (in which case _mod-string_ should be unique).
 * `-h`  
   Show the help message listing these options and quit.
 
