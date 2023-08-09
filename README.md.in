@@ -109,6 +109,29 @@ Building
     $ make all
     $ ./pikchr -h
 
+Command Line Options
+--------------------
+The following command line options are recognized:
+
+* <code>-c <i>aClass</i></code>  
+  Add attribute <code>class="<i>aClass</i>"</code> to all generated `<svg>` tags.
+* `-b`  
+  “Bare SVG mode”: don’t enclose generated SVG elements in a `<div>`. By default a `<div>` wrapper is used to apply a `max-width` style to the diagram to keep it from expanding to the full window width. Use this option to manually style the diagram’s displayed size with your own DIV or when generating a standalone SVG file. This can also be enabled per-diagram with the `svg-only` modifier.
+* `-p`  
+  Generate plaintext error messages. The default is to output HTML-formatted errors.
+* `-d`  
+  Enable “dark mode” in the Pikchr formatter.
+* `-q`  
+  “Quiet mode”: don’t copy non-diagram input to the output. Use this option when generating a standalone SVG file.
+* `-Q`  
+  Remove all Pikchr diagrams from the output.
+* <code>-n <i>num</i></code>  
+  Only translate diagram number _num_ to SVG. Diagrams are numbered starting from 1.  This is usually used along with `-q` and `-b` when generating a standalone SVG file. Note that this method is brittle, consider using `-N` instead.
+* <code>-N <i>mod-string</i></code>  
+  Only translate the first diagram that has _mod-string_ as one of its [start delimiter modifiers](#start-delimiter-modifiers). This is usually used along with `-q` and `-b` when generating a standalone SVG file.
+* `-h`  
+  Show the help message listing these options and quit.
+
 
   [repo]: https://github.com/zenomt/pikchr-cmd
   [DRH]: https://github.com/drhsqlite/pikchr

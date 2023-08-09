@@ -25,7 +25,7 @@ typedef struct {
 	size_t  offset;
 } buffer_t;
 
-static int bufferAppend(buffer_t *buffer, char *str, size_t len)
+static bool bufferAppend(buffer_t *buffer, char *str, size_t len)
 {
 	if(buffer->offset + len >= buffer->capacity)
 	{
@@ -33,14 +33,14 @@ static int bufferAppend(buffer_t *buffer, char *str, size_t len)
 			buffer->capacity *= 2;
 		buffer->buf = (char *)realloc(buffer->buf, buffer->capacity);
 		if(not buffer->buf)
-			return 1;
+			return false;
 	}
 
 	memcpy(buffer->buf + buffer->offset, str, len);
 	buffer->offset += len;
 	buffer->buf[buffer->offset] = 0;
 
-	return 0;
+	return true;
 }
 
 static void bufferErase(buffer_t *buffer)
