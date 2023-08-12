@@ -5,7 +5,7 @@ all: default README.md usage.svg
 
 pikchr: main.o pikchr.o
 	rm -f $@
-	$(CC) -o $@ $+ -lm
+	$(CC) -o $@ main.o pikchr.o -lm
 
 README.md: README.md.in pikchr
 	./pikchr < README.md.in > README.md
