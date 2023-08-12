@@ -40,8 +40,7 @@ which is included here for convenience (as permitted by its generous license).
 </svg>
 </div>
 
-
-    ``` pikchr @usage
+    ``` pikchr @usage requote delimiters
     arrow right 225% "Markdown+Pikchr" "Source"
     Tool: box rad 5px "pikchr" mono "Preprocessor" "(main.c)" mono fit
     arrow same "Markdown+SVG" "Intermediate"
@@ -122,6 +121,10 @@ the available options). The following modifier is recognized:
   (unless command-line option `-b` is given) each diagram is enclosed in a
   `<div>` styled with `max-width` set to the diagram’s width, so it won’t
   expand to the width of the page (which is usually not desired).
+* `requote`: Output the Pikchr source of this diagram in an indented code block
+  after the compiled diagram.
+* `delimiters`: If requoting, include the start and end delimiter lines. By
+  default the start and end delimiters are not included in a requote.
 
 Building
 --------

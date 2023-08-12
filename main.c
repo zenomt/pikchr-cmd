@@ -83,6 +83,23 @@ static const char * strword(const char *haystack, const char *needle)
 	return NULL;
 }
 
+static void printIndented(const char *str)
+{
+	int ch;
+	bool need_indent = true;
+	while((ch = *str++))
+	{
+		if(need_indent)
+		{
+			printf("    ");
+			need_indent = false;
+		}
+		fputc(ch, stdout);
+		if('\n' == ch)
+			need_indent = true;
+	}
+}
+
 static int usage(const char *name, int rv, const char *msg)
 {
 	if(msg)
@@ -103,6 +120,8 @@ static int usage(const char *name, int rv, const char *msg)
 	printf("modifiers are ignored (but can be matched with -N). Known modifiers:\n");
 	printf("\n");
 	printf("  svg-only    -- bare mode, don't wrap this <svg> in <div> to style max-width\n");
+	printf("  requote     -- output the Pikchr source in an indented code block\n");
+	printf("  delimiters  -- include the start and end delimiter lines in a requote\n");
 	printf("\n");
 
 	return rv;
@@ -188,6 +207,9 @@ int main(int argc, char **argv)
 	bufferInit(&accumulator, 8192);
 
 	bool bareModeThisDiagram = bareMode;
+	bool requoteThisDiagram = false;
+	bool includeDelimitersThisDiagram = false;
+	size_t pikchrOffset = 0;
 
 	while(true)
 	{
@@ -211,7 +233,7 @@ int main(int argc, char **argv)
 					int width = 0;
 					int height = 0;
 
-					char * svg = pikchr(accumulator.buf, svgClass, flags, &width, &height);
+					char * svg = pikchr(accumulator.buf + pikchrOffset, svgClass, flags, &width, &height);
 					if(svg)
 					{
 						if(width < 0)
@@ -227,6 +249,13 @@ int main(int argc, char **argv)
 							if(not bareModeThisDiagram)
 								printf("</div>");
 							printf("\n\n");
+
+							if(includeDocument and requoteThisDiagram)
+							{
+								printIndented(accumulator.buf);
+								if(includeDelimitersThisDiagram)
+									printf("    %s", line);
+							}
 						}
 
 						free(svg);
@@ -247,9 +276,15 @@ int main(int argc, char **argv)
 				accumulating = true;
 				diagramNumber++;
 				bareModeThisDiagram = strword(line, "svg-only") ? true : bareMode;
+				requoteThisDiagram = strword(line, "requote");
+				includeDelimitersThisDiagram = strword(line, "delimiters") and requoteThisDiagram;
 
 				if(onlyModifier and strword(line, onlyModifier))
 					diagramNumber = onlyDiagramNumber;
+
+				if(includeDelimitersThisDiagram)
+					bufferAppend(&accumulator, line, linelen);
+				pikchrOffset = accumulator.offset;
 			}
 			else if(includeDocument and (fwrite(line, linelen, 1, stdout) < 1))
 			{
