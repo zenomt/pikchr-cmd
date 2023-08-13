@@ -16,8 +16,8 @@ Tool: box rad 5px "pikchr" mono "Preprocessor" "(main.c)" mono fit
 arrow same "Markdown+SVG" "Intermediate"
 box same "Any Markdown" "Formatter" fit
 arrow same "HTML+SVG" "Output"
-arrow <-> down from Tool.south; "C API" ljust at 0.5*charwid right of previous
-box with .north at last arrow.end same "Pikchr" "Formatter" "(pikchr.c)" mono fit
+arrow <-> down from Tool.south " C API" ljust
+box same "Pikchr" "Formatter" "(pikchr.c)" mono fit
 ```
 
 GitHub doesn’t allow inline SVGs, so here’s the above diagram as an external
