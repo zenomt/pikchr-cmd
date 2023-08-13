@@ -1,10 +1,11 @@
-Pikchr Command-Line Driver
-==========================
-[This preprocessor tool][repo] reads text from the standard input, [replacing][Unix]
-suitably-delimited [Pikchr][] diagrams (a [PIC][]-like diagram language) with
-inline Scalable Vector Graphics (SVG), and writes to the standard output.
-It’s intended for use with your favorite Markdown processor, but can be used
-standalone or with other markup languages too.
+Pikchr Command-Line Tool
+========================
+[This preprocessor tool][repo] reads text from the standard input, replacing
+suitably-delimited [Pikchr][] (a [PIC][]-like diagram language) diagram
+descriptions with inline [Scalable Vector Graphics (SVG)][SVG], and writes
+to the standard output.  It’s intended to be [composed][Unix] with your
+favorite Markdown processor, but can be used standalone or with other markup
+languages or workflows too.
 
 This tool uses the [C reference implementation of Pikchr by Richard Hipp][DRH]
 which is included here for convenience (as permitted by its generous license).
@@ -51,20 +52,20 @@ which is included here for convenience (as permitted by its generous license).
     ```
 
 GitHub doesn’t allow inline SVGs, so here’s the above diagram as an external
-image reference:
+image reference (see Example 3 below):
 
 <img width="755px" src="usage.svg"/>
 
-Example: Pipeline
+Example 1: Pipeline
 
     $ pikchr < file.md | Markdown.pl > file.html
 
-Example: Intermediate file
+Example 2: Intermediate file
 
     $ pikchr < README.md.in > README.md
     $ Markdown.pl < README.md > README.html
 
-Example: Compile the diagram in `README.md.in` that is tagged with modifier
+Example 3: Compile the diagram in `README.md.in` that is tagged with modifier
 “`@usage`” to a separate SVG file called `usage.svg`
 
     $ pikchr -q -b -N @usage < README.md.in > usage.svg
@@ -115,7 +116,7 @@ Any number of whitespace-delimited modifier strings can follow the start
 delimiter prefix on the same line. Modifiers can change the behavior of the
 Pikchr formatter for just that diagram. Unrecognized modifiers are ignored,
 but can be matched by the `-N` command-line option (use `-h` to see all of
-the available options). The following modifier is recognized:
+the available options). The following modifiers are recognized:
 
 * `svg-only`: Output the `<svg>` tag without wrapping it in a `<div>`. By default
   (unless command-line option `-b` is given) each diagram is enclosed in a
@@ -123,8 +124,8 @@ the available options). The following modifier is recognized:
   expand to the width of the page (which is usually not desired).
 * `requote`: Output the Pikchr source of this diagram in an indented code block
   after the compiled diagram.
-* `delimiters`: If requoting, include the start and end delimiter lines. By
-  default the start and end delimiters are not included in a requote.
+* `delimiters`: If requoting, include the start and end delimiter lines. The
+  default is to not include the start and end delimiters in a requote.
 
 Building
 --------
@@ -155,10 +156,11 @@ The following command line options are recognized:
 * <code>-N <i>mod-string</i></code>  
   Only translate diagrams that have _mod-string_ as one of their [start delimiter modifiers](#start-delimiter-modifiers). This is usually used along with `-q` and `-b` when generating a standalone SVG file (in which case _mod-string_ should be unique).
 * `-h`  
-  Show the help message listing these options and quit.
+  Show the help message describing these options and quit.
 
 
   [repo]: https://github.com/zenomt/pikchr-cmd
+  [SVG]: https://www.w3.org/Graphics/SVG/
   [DRH]: https://github.com/drhsqlite/pikchr
   [Pikchr]: https://pikchr.org/
   [PIC]: https://en.wikipedia.org/wiki/PIC_(markup_language)
