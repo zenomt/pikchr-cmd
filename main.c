@@ -107,6 +107,7 @@ static int usage(const char *name, int rv, const char *msg)
 
 	printf("Usage: %s [options]\n", name);
 	printf("  -c aClass   -- add class=\"aClass\" to <svg> tags\n");
+	printf("  -a attrs    -- add attrs as additional attributes to <svg> tags\n");
 	printf("  -b          -- bare mode, don't wrap <svg> in <div> to style max-width\n");
 	printf("  -p          -- output plaintext error messages instead of HTML\n");
 	printf("  -d          -- set dark mode\n");
@@ -131,6 +132,7 @@ int main(int argc, char **argv)
 {
 	int ch;
 	const char *svgClass = NULL;
+	const char *svgAttrs = "";
 	const char *onlyModifier = NULL;
 	bool bareMode = false;
 	bool includeDocument = true;
@@ -141,12 +143,16 @@ int main(int argc, char **argv)
 	size_t onlyDiagramNumber = 0;
 	int rv = 0;
 
-	while((ch = getopt(argc, argv, "c:bpdqQn:N:h")) != -1)
+	while((ch = getopt(argc, argv, "c:a:bpdqQn:N:h")) != -1)
 	{
 		switch(ch)
 		{
 		case 'c':
 			svgClass = optarg;
+			break;
+
+		case 'a':
+			svgAttrs = optarg;
 			break;
 
 		case 'b':
@@ -244,8 +250,17 @@ int main(int argc, char **argv)
 						else
 						{
 							if(not bareModeThisDiagram)
-								printf("<div style=\"max-width:%dpx\">", width);
-							printf("%s", svg);
+								printf("<div style=\"max-width:%dpx\">\n", width);
+
+							char *afterFirstElement = strchr(svg, '>');
+							if(afterFirstElement)
+							{
+								*afterFirstElement++ = 0;
+								printf("%s %s>%s", svg, svgAttrs, afterFirstElement);
+							}
+							else
+								printf("%s", svg); // will only happen if pikchr() doesn't answer a complete SVG element
+
 							if(not bareModeThisDiagram)
 								printf("</div>");
 							printf("\n\n");
