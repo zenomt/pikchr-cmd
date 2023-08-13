@@ -11,7 +11,7 @@ README.md: README.md.in pikchr
 	./pikchr < README.md.in > README.md
 
 usage.svg: README.md.in pikchr
-	./pikchr -qb -N @usage < README.md.in > usage.svg
+	./pikchr -qb -N @usage < README.md.in | sed -e '/^<svg /s//<svg style="font-family:sans-serif" /' > usage.svg
 
 clean:
 	rm -f pikchr *.o
