@@ -14,7 +14,7 @@ which is included here for convenience (as permitted by its generous license).
 arrow right 225% "Markdown+Pikchr" "Source"
 Tool: box rad 5px "pikchr" mono "Preprocessor" "(main.c)" mono fit
 arrow same "Markdown+SVG" "Intermediate"
-box same "Any Markdown" "Formatter" fit
+box same "Any Markdown" "Formatter" fit height Tool.height
 arrow same "HTML+SVG" "Output"
 arrow <-> down from Tool.south " C API" ljust
 box same "Pikchr" "Formatter" "(pikchr.c)" mono fit

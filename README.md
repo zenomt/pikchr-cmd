@@ -24,7 +24,7 @@ which is included here for convenience (as permitted by its generous license).
 <path d="M286.963,37.44L443.203,37.44"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
 <text x="367.963" y="25.74" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Markdown+SVG</text>
 <text x="367.963" y="49.14" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Intermediate</text>
-<path d="M456.463,62.64L579.473,62.64A7.5 7.5 0 0 0 586.973 55.14L586.973,19.74A7.5 7.5 0 0 0 579.473 12.24L456.463,12.24A7.5 7.5 0 0 0 448.963 19.74L448.963,55.14A7.5 7.5 0 0 0 456.463 62.64Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<path d="M456.463,72.72L579.473,72.72A7.5 7.5 0 0 0 586.973 65.22L586.973,9.66A7.5 7.5 0 0 0 579.473 2.16L456.463,2.16A7.5 7.5 0 0 0 448.963 9.66L448.963,65.22A7.5 7.5 0 0 0 456.463 72.72Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
 <text x="517.968" y="27.36" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Any Markdown</text>
 <text x="517.968" y="47.52" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Formatter</text>
 <polygon points="748.973,37.44 737.453,41.76 737.453,33.12" style="fill:rgb(0,0,0)"/>
@@ -46,7 +46,7 @@ which is included here for convenience (as permitted by its generous license).
     arrow right 225% "Markdown+Pikchr" "Source"
     Tool: box rad 5px "pikchr" mono "Preprocessor" "(main.c)" mono fit
     arrow same "Markdown+SVG" "Intermediate"
-    box same "Any Markdown" "Formatter" fit
+    box same "Any Markdown" "Formatter" fit height Tool.height
     arrow same "HTML+SVG" "Output"
     arrow <-> down from Tool.south " C API" ljust
     box same "Pikchr" "Formatter" "(pikchr.c)" mono fit
