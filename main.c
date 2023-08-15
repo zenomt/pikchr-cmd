@@ -252,7 +252,9 @@ int main(int argc, char **argv)
 							if(not bareModeThisDiagram)
 								printf("<div style=\"max-width:%dpx\">\n", width);
 
-							char *afterFirstElement = strchr(svg, '>');
+							char *afterFirstElement = strstr(svg, "<svg");
+							if(afterFirstElement)
+								afterFirstElement = strchr(afterFirstElement, '>');
 							if(afterFirstElement)
 							{
 								*afterFirstElement++ = 0;
@@ -262,8 +264,8 @@ int main(int argc, char **argv)
 								printf("%s", svg); // will only happen if pikchr() doesn't answer a complete SVG element
 
 							if(not bareModeThisDiagram)
-								printf("</div>");
-							printf("\n\n");
+								printf("</div>\n");
+							printf("\n");
 
 							if(includeDocument and requoteThisDiagram)
 							{
