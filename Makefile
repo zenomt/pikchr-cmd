@@ -11,7 +11,7 @@ README.md: README.md.in pikchr
 	./pikchr < README.md.in > README.md
 
 usage.svg: README.md.in pikchr
-	./pikchr -qb -N @usage -a 'style="font-family:sans-serif;background-color:white"' < README.md.in > usage.svg
+	./pikchr -qb -N @usage -a 'style="font-family:sans-serif"' < README.md.in > usage.svg
 
 clean:
 	rm -f pikchr *.o

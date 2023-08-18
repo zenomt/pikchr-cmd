@@ -23,7 +23,7 @@ box same "Pikchr" "Formatter" "(pikchr.c)" mono fit
 GitHub doesn’t allow inline SVGs, so here’s the above diagram as an external
 image reference (see Example 3 below):
 
-<img width="755px" src="usage.svg"/>
+<img width="755px" src="usage.svg" style="background-color:white" />
 
 Example 1: Pipeline
 
