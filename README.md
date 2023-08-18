@@ -55,7 +55,7 @@ which is included here for convenience (as permitted by its generous license).
 GitHub doesn’t allow inline SVGs, so here’s the above diagram as an external
 image reference (see Example 3 below):
 
-<img width="755px" src="usage.svg" style="background-color:white" />
+<img width="755px" src="usage.svg"/>
 
 Example 1: Pipeline
 
