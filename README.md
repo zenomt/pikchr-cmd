@@ -12,37 +12,37 @@ which is included here for convenience (as permitted by its generous license).
 
 <div style="max-width:755px">
 <svg xmlns='http://www.w3.org/2000/svg' viewBox="0 0 755.453 217.44" >
-<polygon points="164.16,37.44 152.64,41.76 152.64,33.12" style="fill:rgb(0,0,0)"/>
-<path d="M2.16,37.44L158.4,37.44"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
-<text x="83.16" y="25.74" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Markdown+Pikchr</text>
-<text x="83.16" y="49.14" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Source</text>
-<path d="M171.66,72.72L279.463,72.72A7.5 7.5 0 0 0 286.963 65.22L286.963,9.66A7.5 7.5 0 0 0 279.463 2.16L171.66,2.16A7.5 7.5 0 0 0 164.16 9.66L164.16,65.22A7.5 7.5 0 0 0 171.66 72.72Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
-<text x="225.562" y="17.28" text-anchor="middle" font-family="monospace" fill="rgb(0,0,0)" dominant-baseline="central">pikchr</text>
-<text x="225.562" y="37.44" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Preprocessor</text>
-<text x="225.562" y="57.6" text-anchor="middle" font-family="monospace" fill="rgb(0,0,0)" dominant-baseline="central">(main.c)</text>
-<polygon points="448.963,37.44 437.443,41.76 437.443,33.12" style="fill:rgb(0,0,0)"/>
-<path d="M286.963,37.44L443.203,37.44"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
-<text x="367.963" y="25.74" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Markdown+SVG</text>
-<text x="367.963" y="49.14" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Intermediate</text>
-<path d="M456.463,72.72L579.473,72.72A7.5 7.5 0 0 0 586.973 65.22L586.973,9.66A7.5 7.5 0 0 0 579.473 2.16L456.463,2.16A7.5 7.5 0 0 0 448.963 9.66L448.963,65.22A7.5 7.5 0 0 0 456.463 72.72Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
-<text x="517.968" y="27.36" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Any Markdown</text>
-<text x="517.968" y="47.52" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Formatter</text>
-<polygon points="748.973,37.44 737.453,41.76 737.453,33.12" style="fill:rgb(0,0,0)"/>
-<path d="M586.973,37.44L743.213,37.44"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
-<text x="667.973" y="25.74" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">HTML+SVG</text>
-<text x="667.973" y="49.14" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Output</text>
-<polygon points="225.562,72.72 229.882,84.24 221.242,84.24" style="fill:rgb(0,0,0)"/>
-<polygon points="225.562,144.72 221.242,133.2 229.882,133.2" style="fill:rgb(0,0,0)"/>
-<path d="M225.562,78.48L225.562,138.96"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
-<text x="225.562" y="108.72" text-anchor="start" fill="rgb(0,0,0)" dominant-baseline="central"> C API</text>
-<path d="M180.07,215.28L271.054,215.28A7.5 7.5 0 0 0 278.554 207.78L278.554,152.22A7.5 7.5 0 0 0 271.054 144.72L180.07,144.72A7.5 7.5 0 0 0 172.57 152.22L172.57,207.78A7.5 7.5 0 0 0 180.07 215.28Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
-<text x="225.562" y="159.84" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Pikchr</text>
-<text x="225.562" y="180" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Formatter</text>
-<text x="225.562" y="200.16" text-anchor="middle" font-family="monospace" fill="rgb(0,0,0)" dominant-baseline="central">(pikchr.c)</text>
+<polygon points="164.16,37.44 152.64,41.76 152.64,33.12" style="fill:currentColor"/>
+<path d="M2.16,37.44L158.4,37.44"  style="fill:none;stroke-width:2.16;stroke:currentColor;" />
+<text x="83.16" y="25.74" text-anchor="middle" fill="currentColor" dominant-baseline="central">Markdown+Pikchr</text>
+<text x="83.16" y="49.14" text-anchor="middle" fill="currentColor" dominant-baseline="central">Source</text>
+<path d="M171.66,72.72L279.463,72.72A7.5 7.5 0 0 0 286.963 65.22L286.963,9.66A7.5 7.5 0 0 0 279.463 2.16L171.66,2.16A7.5 7.5 0 0 0 164.16 9.66L164.16,65.22A7.5 7.5 0 0 0 171.66 72.72Z"  style="fill:none;stroke-width:2.16;stroke:currentColor;" />
+<text x="225.562" y="17.28" text-anchor="middle" font-family="monospace" fill="currentColor" dominant-baseline="central">pikchr</text>
+<text x="225.562" y="37.44" text-anchor="middle" fill="currentColor" dominant-baseline="central">Preprocessor</text>
+<text x="225.562" y="57.6" text-anchor="middle" font-family="monospace" fill="currentColor" dominant-baseline="central">(main.c)</text>
+<polygon points="448.963,37.44 437.443,41.76 437.443,33.12" style="fill:currentColor"/>
+<path d="M286.963,37.44L443.203,37.44"  style="fill:none;stroke-width:2.16;stroke:currentColor;" />
+<text x="367.963" y="25.74" text-anchor="middle" fill="currentColor" dominant-baseline="central">Markdown+SVG</text>
+<text x="367.963" y="49.14" text-anchor="middle" fill="currentColor" dominant-baseline="central">Intermediate</text>
+<path d="M456.463,72.72L579.473,72.72A7.5 7.5 0 0 0 586.973 65.22L586.973,9.66A7.5 7.5 0 0 0 579.473 2.16L456.463,2.16A7.5 7.5 0 0 0 448.963 9.66L448.963,65.22A7.5 7.5 0 0 0 456.463 72.72Z"  style="fill:none;stroke-width:2.16;stroke:currentColor;" />
+<text x="517.968" y="27.36" text-anchor="middle" fill="currentColor" dominant-baseline="central">Any Markdown</text>
+<text x="517.968" y="47.52" text-anchor="middle" fill="currentColor" dominant-baseline="central">Formatter</text>
+<polygon points="748.973,37.44 737.453,41.76 737.453,33.12" style="fill:currentColor"/>
+<path d="M586.973,37.44L743.213,37.44"  style="fill:none;stroke-width:2.16;stroke:currentColor;" />
+<text x="667.973" y="25.74" text-anchor="middle" fill="currentColor" dominant-baseline="central">HTML+SVG</text>
+<text x="667.973" y="49.14" text-anchor="middle" fill="currentColor" dominant-baseline="central">Output</text>
+<polygon points="225.562,72.72 229.882,84.24 221.242,84.24" style="fill:currentColor"/>
+<polygon points="225.562,144.72 221.242,133.2 229.882,133.2" style="fill:currentColor"/>
+<path d="M225.562,78.48L225.562,138.96"  style="fill:none;stroke-width:2.16;stroke:currentColor;" />
+<text x="225.562" y="108.72" text-anchor="start" fill="currentColor" dominant-baseline="central"> C API</text>
+<path d="M180.07,215.28L271.054,215.28A7.5 7.5 0 0 0 278.554 207.78L278.554,152.22A7.5 7.5 0 0 0 271.054 144.72L180.07,144.72A7.5 7.5 0 0 0 172.57 152.22L172.57,207.78A7.5 7.5 0 0 0 180.07 215.28Z"  style="fill:none;stroke-width:2.16;stroke:currentColor;" />
+<text x="225.562" y="159.84" text-anchor="middle" fill="currentColor" dominant-baseline="central">Pikchr</text>
+<text x="225.562" y="180" text-anchor="middle" fill="currentColor" dominant-baseline="central">Formatter</text>
+<text x="225.562" y="200.16" text-anchor="middle" font-family="monospace" fill="currentColor" dominant-baseline="central">(pikchr.c)</text>
 </svg>
 </div>
 
-    ``` pikchr @usage requote delimiters
+    ``` pikchr @usage requote delimiters x-current-color
     arrow right 225% "Markdown+Pikchr" "Source"
     Tool: box rad 5px "pikchr" mono "Preprocessor" "(main.c)" mono fit
     arrow same "Markdown+SVG" "Intermediate"
@@ -127,6 +127,13 @@ the available options). The following modifiers are recognized:
   after the compiled diagram.
 * `delimiters`: If requoting, include the start and end delimiter lines. The
   default is to not include the start and end delimiters in a requote.
+* `x-current-color`: Experimental, output CSS `currentColor` instead of
+  `rgb(0,0,0)` for numeric color value 0 (black, the default marking
+  color in diagrams). The diagram will be painted in the SVG element’s
+  inherited foreground color instead of the default black, which may enable
+  naturally adapting to different page themes or dark mode. Note that only
+  color value 0 is affected. To force black, set the color to a positive
+  number less than 0.5.
 
 Building
 --------

@@ -10,7 +10,7 @@ languages or workflows too.
 This tool uses the [C reference implementation of Pikchr by Richard Hipp][DRH]
 which is included here for convenience (as permitted by its generous license).
 
-``` pikchr @usage requote delimiters
+``` pikchr @usage requote delimiters x-current-color
 arrow right 225% "Markdown+Pikchr" "Source"
 Tool: box rad 5px "pikchr" mono "Preprocessor" "(main.c)" mono fit
 arrow same "Markdown+SVG" "Intermediate"
@@ -95,6 +95,13 @@ the available options). The following modifiers are recognized:
   after the compiled diagram.
 * `delimiters`: If requoting, include the start and end delimiter lines. The
   default is to not include the start and end delimiters in a requote.
+* `x-current-color`: Experimental, output CSS `currentColor` instead of
+  `rgb(0,0,0)` for numeric color value 0 (black, the default marking
+  color in diagrams). The diagram will be painted in the SVG element’s
+  inherited foreground color instead of the default black, which may enable
+  naturally adapting to different page themes or dark mode. Note that only
+  color value 0 is affected. To force black, set the color to a positive
+  number less than 0.5.
 
 Building
 --------

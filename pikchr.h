@@ -31,3 +31,9 @@ char *pikchr(
 ** argument to pikchr() to render the image in dark mode.
 */
 #define PIKCHR_DARK_MODE        0x0002
+
+/* Include PIKCHR_CURRENTCOLOR_FOR_BLACK among the bits of mFlags on
+** the 3rd argument to pikchr() to have color exactly 0.0 (black)
+** emitted as "currentColor" instead of "rgb(0,0,0)".
+*/
+#define PIKCHR_CURRENTCOLOR_FOR_BLACK 0x0004

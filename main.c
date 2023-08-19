@@ -123,6 +123,8 @@ static int usage(const char *name, int rv, const char *msg)
 	printf("  svg-only    -- bare mode, don't wrap this <svg> in <div> to style max-width\n");
 	printf("  requote     -- output the Pikchr source in an indented code block\n");
 	printf("  delimiters  -- include the start and end delimiter lines in a requote\n");
+	printf("  x-current-color -- Experimental, use \"currentColor\" instead of \"rgb(0,0,0)\"\n");
+	printf("                     for black (0), to paint with the inherited foreground color.\n");
 	printf("\n");
 
 	return rv;
@@ -215,6 +217,7 @@ int main(int argc, char **argv)
 	bool bareModeThisDiagram = bareMode;
 	bool requoteThisDiagram = false;
 	bool includeDelimitersThisDiagram = false;
+	int flagsThisDiagram = flags;
 	size_t pikchrOffset = 0;
 
 	while(true)
@@ -239,7 +242,7 @@ int main(int argc, char **argv)
 					int width = 0;
 					int height = 0;
 
-					char * svg = pikchr(accumulator.buf + pikchrOffset, svgClass, flags, &width, &height);
+					char * svg = pikchr(accumulator.buf + pikchrOffset, svgClass, flagsThisDiagram, &width, &height);
 					if(svg)
 					{
 						if(width < 0)
@@ -295,6 +298,7 @@ int main(int argc, char **argv)
 				bareModeThisDiagram = strword(line, "svg-only") ? true : bareMode;
 				requoteThisDiagram = strword(line, "requote");
 				includeDelimitersThisDiagram = strword(line, "delimiters") and requoteThisDiagram;
+				flagsThisDiagram = flags | (strword(line, "x-current-color") ? PIKCHR_CURRENTCOLOR_FOR_BLACK : 0);
 
 				if(onlyModifier and strword(line, onlyModifier))
 					diagramNumber = onlyDiagramNumber;
