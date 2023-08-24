@@ -3,7 +3,7 @@ Pikchr Command-Line Tool
 [This preprocessor tool][repo] reads text from the standard input, replacing
 suitably-delimited [Pikchr][] (a [PIC][]-like diagram language) diagram
 descriptions with inline [Scalable Vector Graphics (SVG)][SVG], and writes
-to the standard output.  It’s intended to be [composed][Unix] with your
+to the standard output.  It’s [intended to be composed][Unix] with your
 favorite Markdown processor, but can be used standalone or with other markup
 languages or workflows too.
 
