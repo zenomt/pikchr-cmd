@@ -77,7 +77,7 @@ static const char * strword(const char *haystack, const char *needle)
 			if((0 == rv[len]) or isspace(rv[len]))
 				return rv;
 		}
-		cursor++;
+		cursor = rv + 1;
 	}
 
 	return NULL;
