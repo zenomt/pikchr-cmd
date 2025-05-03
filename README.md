@@ -11,7 +11,7 @@ This tool uses the [C reference implementation of Pikchr by Richard Hipp][DRH]
 which is included here for convenience (as permitted by its generous license).
 
 <div style="max-width:755px">
-<svg xmlns='http://www.w3.org/2000/svg' viewBox="0 0 755.453 217.44" >
+<svg xmlns='http://www.w3.org/2000/svg' viewBox="0 0 755.453 217.44" data-pikchr-date="20250321215505" >
 <polygon points="164.16,37.44 152.64,41.76 152.64,33.12" style="fill:currentColor"/>
 <path d="M2.16,37.44L158.4,37.44"  style="fill:none;stroke-width:2.16;stroke:currentColor;" />
 <text x="83.16" y="25.74" text-anchor="middle" fill="currentColor" dominant-baseline="central">Markdown+Pikchr</text>

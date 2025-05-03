@@ -37,3 +37,7 @@ char *pikchr(
 ** emitted as "currentColor" instead of "rgb(0,0,0)".
 */
 #define PIKCHR_CURRENTCOLOR_FOR_BLACK 0x0004
+
+/* Return a static string that describes the current version of pikchr
+*/
+const char *pikchr_version(void);
