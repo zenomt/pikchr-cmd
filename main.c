@@ -109,7 +109,7 @@ static int usage(const char *name, int rv, const char *msg)
 
 	printf("Usage: %s [options]\n", name);
 	printf("  -c aClass   -- add class=\"aClass\" to <svg> tags\n");
-	printf("  -a attrs    -- add attrs as additional attributes to <svg> tags, default: %s\n", svgAttrs);
+	printf("  -a attrs    -- add attrs to <svg> tags, default: %s\n", svgAttrs);
 	printf("  -b          -- bare mode, don't wrap <svg> in <div> to style max-width\n");
 	printf("  -p          -- output plaintext error messages instead of HTML\n");
 	printf("  -d          -- set dark mode\n");
