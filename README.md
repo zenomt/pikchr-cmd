@@ -11,7 +11,7 @@ This tool uses the [C reference implementation of Pikchr by Richard Hipp][DRH]
 which is included here for convenience (as permitted by its generous license).
 
 <div style="max-width:755px">
-<svg xmlns='http://www.w3.org/2000/svg' viewBox="0 0 755.453 217.44" data-pikchr-date="20250321215505" >
+<svg xmlns='http://www.w3.org/2000/svg' viewBox="0 0 755.453 217.44" data-pikchr-date="20250321215505" style='font-size:initial;'>
 <polygon points="164.16,37.44 152.64,41.76 152.64,33.12" style="fill:currentColor"/>
 <path d="M2.16,37.44L158.4,37.44"  style="fill:none;stroke-width:2.16;stroke:currentColor;" />
 <text x="83.16" y="25.74" text-anchor="middle" fill="currentColor" dominant-baseline="central">Markdown+Pikchr</text>
@@ -150,7 +150,9 @@ The following command line options are recognized:
 * <code>-c <em>aClass</em></code>  
   Add attribute <code>class="<em>aClass</em>"</code> to all generated `<svg>` tags.
 * <code>-a <em>arbitrary-attributes</em></code>  
-  Add _arbitrary-attributes_ string to all generated `<svg>` tags.
+  Add _arbitrary-attributes_ string to all generated `<svg>` tags. For compatibility with
+  the behavior of the latest upstream [Pikchr][], the default value is `style='font-size:initial;'`;
+  consider including this style directive if appropriate to any custom setting of this parameter.
 * `-b`  
   “Bare SVG mode”: don’t enclose generated SVG elements in a `<div>`. By default a `<div>` wrapper is used to apply a `max-width` style to the diagram to keep it from expanding to the full window width. Use this option to manually style the diagram’s displayed size with your own DIV or when generating a standalone SVG file. This can also be enabled per-diagram with the `svg-only` modifier.
 * `-p`  
