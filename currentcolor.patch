@@ -1,0 +1,62 @@
+diff --git a/pikchr.h.in b/pikchr.h.in
+index 60cae5a..834f278 100644
+--- a/pikchr.h.in
++++ b/pikchr.h.in
+@@ -32,6 +32,12 @@ char *pikchr(
+ */
+ #define PIKCHR_DARK_MODE        0x0002
+ 
++/* Include PIKCHR_CURRENTCOLOR_FOR_BLACK among the bits of mFlags on
++** the 3rd argument to pikchr() to have color exactly 0.0 (black)
++** emitted as "currentColor" instead of "rgb(0,0,0)".
++*/
++#define PIKCHR_CURRENTCOLOR_FOR_BLACK 0x0004
++
+ /* Return a static string that describes the current version of pikchr
+ */
+ const char *pikchr_version(void);
+diff --git a/pikchr.y b/pikchr.y
+index 8c4d89d..0434d04 100644
+--- a/pikchr.y
++++ b/pikchr.y
+@@ -413,6 +413,12 @@ struct Pik {
+ */
+ #define PIKCHR_DARK_MODE        0x0002
+ 
++/* Include PIKCHR_CURRENTCOLOR_FOR_BLACK among the bits of mFlags on
++** the 3rd argument to pikchr() to have color exactly 0.0 (black)
++** emitted as "currentColor" instead of "rgb(0,0,0)".
++*/
++#define PIKCHR_CURRENTCOLOR_FOR_BLACK 0x0004
++
+ /*
+ ** The behavior of an object class is defined by an instance of
+ ** this structure. This is the "virtual method" table.
+@@ -2230,10 +2236,14 @@ static void pik_append_clr(Pik *p,const char *z1,PNum v,const char *z2,int bg){
+   }else if( p->mFlags & PIKCHR_DARK_MODE ){
+     x = pik_color_to_dark_mode(x,bg);
+   }
+-  r = (x>>16) & 0xff;
+-  g = (x>>8) & 0xff;
+-  b = x & 0xff;
+-  snprintf(buf, sizeof(buf)-1, "%srgb(%d,%d,%d)%s", z1, r, g, b, z2);
++  if( p->mFlags & PIKCHR_CURRENTCOLOR_FOR_BLACK && v==0.0 ){
++    snprintf(buf, sizeof(buf)-1, "%scurrentColor%s", z1, z2);
++  }else{
++    r = (x>>16) & 0xff;
++    g = (x>>8) & 0xff;
++    b = x & 0xff;
++    snprintf(buf, sizeof(buf)-1, "%srgb(%d,%d,%d)%s", z1, r, g, b, z2);
++  }
+   buf[sizeof(buf)-1] = 0;
+   pik_append(p, buf, -1);
+ }
+@@ -4615,7 +4625,7 @@ static void pik_render(Pik *p, PList *pList){
+ 
+     /* Output the SVG */
+     pik_append(p, "<svg xmlns='http://www.w3.org/2000/svg'"
+-                  " style='font-size:initial;'",-1);
++                  /* " style='font-size:initial;'" */,-1);
+     if( p->zClass ){
+       pik_append(p, " class=\"", -1);
+       pik_append(p, p->zClass, -1);
