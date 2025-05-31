@@ -4407,7 +4407,7 @@ static void splineRender(Pik *p, PObj *pObj){
 static void textInit(Pik *p, PObj *pObj){
   pik_value(p, "textwid",7,0);
   pik_value(p, "textht",6,0);
-  pObj->sw = 0.0;
+  pObj->sw = -0.00001;
 }
 static PPoint textOffset(Pik *p, PObj *pObj, int cp){
   /* Automatically slim-down the width and height of text

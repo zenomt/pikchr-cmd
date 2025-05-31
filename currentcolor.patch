@@ -16,7 +16,7 @@ index 60cae5a..834f278 100644
  */
  const char *pikchr_version(void);
 diff --git a/pikchr.y b/pikchr.y
-index 8c4d89d..0434d04 100644
+index 8c4d89d..7605653 100644
 --- a/pikchr.y
 +++ b/pikchr.y
 @@ -413,6 +413,12 @@ struct Pik {
@@ -32,6 +32,15 @@ index 8c4d89d..0434d04 100644
  /*
  ** The behavior of an object class is defined by an instance of
  ** this structure. This is the "virtual method" table.
+@@ -1733,7 +1739,7 @@ static void splineRender(Pik *p, PObj *pObj){
+ static void textInit(Pik *p, PObj *pObj){
+   pik_value(p, "textwid",7,0);
+   pik_value(p, "textht",6,0);
+-  pObj->sw = 0.0;
++  pObj->sw = -0.00001;
+ }
+ static PPoint textOffset(Pik *p, PObj *pObj, int cp){
+   /* Automatically slim-down the width and height of text
 @@ -2230,10 +2236,14 @@ static void pik_append_clr(Pik *p,const char *z1,PNum v,const char *z2,int bg){
    }else if( p->mFlags & PIKCHR_DARK_MODE ){
      x = pik_color_to_dark_mode(x,bg);
