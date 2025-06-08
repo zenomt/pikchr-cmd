@@ -10,7 +10,7 @@ languages or workflows too.
 This tool uses the [C reference implementation of Pikchr by Richard Hipp][DRH]
 which is included here for convenience (as permitted by its generous license).
 
-``` pikchr @usage requote delimiters x-current-color
+``` pikchr @usage requote delimiters x-current-color details open
 arrow right 225% "Markdown+Pikchr" "Source"
 Tool: box rad 5px "pikchr" mono "Preprocessor" "(main.c)" mono fit
 arrow same "Markdown+SVG" "Intermediate"

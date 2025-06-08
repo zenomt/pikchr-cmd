@@ -284,7 +284,7 @@ int main(int argc, char **argv)
 							if(includeDocument and requoteThisDiagram)
 							{
 								if(detailsThisDiagram)
-									printf("<details%s>\n\n<summary>%s</summary>\n\n", detailsOpenThisDiagram ? " open" : "", summaryText);
+									printf("<details markdown=\"1\"%s>\n\n<summary>%s</summary>\n\n", detailsOpenThisDiagram ? " open" : "", summaryText);
 
 								printIndented(accumulator.buf);
 								if(includeDelimitersThisDiagram)

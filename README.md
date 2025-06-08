@@ -42,7 +42,11 @@ which is included here for convenience (as permitted by its generous license).
 </svg>
 </div>
 
-    ``` pikchr @usage requote delimiters x-current-color
+<details markdown="1" open>
+
+<summary>Pikchr Source</summary>
+
+    ``` pikchr @usage requote delimiters x-current-color details open
     arrow right 225% "Markdown+Pikchr" "Source"
     Tool: box rad 5px "pikchr" mono "Preprocessor" "(main.c)" mono fit
     arrow same "Markdown+SVG" "Intermediate"
@@ -51,6 +55,9 @@ which is included here for convenience (as permitted by its generous license).
     arrow <-> down from Tool.south " C API" ljust
     box same "Pikchr" "Formatter" "(pikchr.c)" mono fit
     ```
+
+</details>
+
 
 GitHub doesn’t allow inline SVGs, so here’s the above diagram as an external
 image reference (see Example 3 below):
