@@ -26,6 +26,7 @@ typedef struct {
 } buffer_t;
 
 const char *svgAttrs = "style='font-size:initial;'";
+const char *summaryText = "Pikchr Source";
 
 static bool bufferAppend(buffer_t *buffer, char *str, size_t len)
 {
@@ -110,6 +111,7 @@ static int usage(const char *name, int rv, const char *msg)
 	printf("Usage: %s [options]\n", name);
 	printf("  -c aClass   -- add class=\"aClass\" to <svg> tags\n");
 	printf("  -a attrs    -- add attrs to <svg> tags, default: %s\n", svgAttrs);
+	printf("  -s summary  -- summary text for <details>, default: %s\n", summaryText);
 	printf("  -b          -- bare mode, don't wrap <svg> in <div> to style max-width\n");
 	printf("  -p          -- output plaintext error messages instead of HTML\n");
 	printf("  -d          -- set dark mode\n");
@@ -125,6 +127,8 @@ static int usage(const char *name, int rv, const char *msg)
 	printf("  svg-only    -- bare mode, don't wrap this <svg> in <div> to style max-width\n");
 	printf("  requote     -- output the Pikchr source in an indented code block\n");
 	printf("  delimiters  -- include the start and end delimiter lines in a requote\n");
+	printf("  details     -- if requoting, put source in a <details> element\n");
+	printf("  open        -- default <details> to visible/open\n");
 	printf("  x-current-color -- Experimental, use \"currentColor\" instead of \"rgb(0,0,0)\"\n");
 	printf("                     for black (0), to paint with the inherited foreground color.\n");
 	printf("\n");
@@ -146,7 +150,7 @@ int main(int argc, char **argv)
 	size_t onlyDiagramNumber = 0;
 	int rv = 0;
 
-	while((ch = getopt(argc, argv, "c:a:bpdqQn:N:h")) != -1)
+	while((ch = getopt(argc, argv, "c:a:s:bpdqQn:N:h")) != -1)
 	{
 		switch(ch)
 		{
@@ -156,6 +160,10 @@ int main(int argc, char **argv)
 
 		case 'a':
 			svgAttrs = optarg;
+			break;
+
+		case 's':
+			summaryText = optarg;
 			break;
 
 		case 'b':
@@ -218,6 +226,8 @@ int main(int argc, char **argv)
 	bool bareModeThisDiagram = bareMode;
 	bool requoteThisDiagram = false;
 	bool includeDelimitersThisDiagram = false;
+	bool detailsThisDiagram = false;
+	bool detailsOpenThisDiagram = false;
 	int flagsThisDiagram = flags;
 	size_t pikchrOffset = 0;
 
@@ -273,9 +283,15 @@ int main(int argc, char **argv)
 
 							if(includeDocument and requoteThisDiagram)
 							{
+								if(detailsThisDiagram)
+									printf("<details%s>\n\n<summary>%s</summary>\n\n", detailsOpenThisDiagram ? " open" : "", summaryText);
+
 								printIndented(accumulator.buf);
 								if(includeDelimitersThisDiagram)
 									printf("    %s", line);
+
+								if(detailsThisDiagram)
+									printf("\n</details>\n\n");
 							}
 						}
 
@@ -299,6 +315,8 @@ int main(int argc, char **argv)
 				bareModeThisDiagram = strword(line, "svg-only") ? true : bareMode;
 				requoteThisDiagram = strword(line, "requote");
 				includeDelimitersThisDiagram = strword(line, "delimiters") and requoteThisDiagram;
+				detailsThisDiagram = strword(line, "details") and requoteThisDiagram;
+				detailsOpenThisDiagram = strword(line, "open") and detailsThisDiagram;
 				flagsThisDiagram = flags | (strword(line, "x-current-color") ? PIKCHR_CURRENTCOLOR_FOR_BLACK : 0);
 
 				if(onlyModifier and strword(line, onlyModifier))

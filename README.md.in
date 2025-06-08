@@ -10,7 +10,7 @@ languages or workflows too.
 This tool uses the [C reference implementation of Pikchr by Richard Hipp][DRH]
 which is included here for convenience (as permitted by its generous license).
 
-``` pikchr @usage requote delimiters x-current-color
+``` pikchr @usage requote delimiters x-current-color details open
 arrow right 225% "Markdown+Pikchr" "Source"
 Tool: box rad 5px "pikchr" mono "Preprocessor" "(main.c)" mono fit
 arrow same "Markdown+SVG" "Intermediate"
@@ -27,12 +27,12 @@ image reference (see Example 3 below):
 
 Example 1: Pipeline
 
-    $ pikchr < file.md | Markdown.pl > file.html
+    $ pikchr < file.md | md2html > file.html
 
 Example 2: Intermediate file
 
     $ pikchr < README.md.in > README.md
-    $ Markdown.pl < README.md > README.html
+    $ md2html < README.md > README.html
 
 Example 3: Compile the diagram in `README.md.in` that is tagged with modifier
 “`@usage`” to a separate SVG file called `usage.svg`
@@ -95,6 +95,13 @@ the available options). The following modifiers are recognized:
   after the compiled diagram.
 * `delimiters`: If requoting, include the start and end delimiter lines. The
   default is to not include the start and end delimiters in a requote.
+* `details`: If requoting, put the requoted source into a `<details>`
+  element. Note that the output is [CommonMark][] compliant, but some older
+  non-CommonMark formatters (such as `Markdown.pl`) might format `<details>` incorrectly.
+  The `<summary>` content is set with the `-s` command-line option and defaults
+  to “`Pikchr Source`”.
+* `open`: Set the `open` attribute of the `<details>` element so that the
+  requoted Pikchr source starts out visible/open/disclosed.
 * `x-current-color`: Experimental, output CSS `currentColor` instead of
   `rgb(0,0,0)` for numeric color value 0 (black, the default marking
   color in diagrams). The diagram will be painted in the SVG element’s
@@ -121,12 +128,16 @@ The following command line options are recognized:
   Add _arbitrary-attributes_ string to all generated `<svg>` tags. For compatibility with
   the behavior of the latest upstream [Pikchr][], the default value is `style='font-size:initial;'`;
   consider including this style directive if appropriate to any custom setting of this parameter.
+* <code>-s <em>summary-content</em></code>  
+  Change the raw HTML content of the `<summary>` element when requoting diagram source in a `<details>`
+  element. The default value is `Pikchr Source`.
 * `-b`  
   “Bare SVG mode”: don’t enclose generated SVG elements in a `<div>`. By default a `<div>` wrapper is used to apply a `max-width` style to the diagram to keep it from expanding to the full window width. Use this option to manually style the diagram’s displayed size with your own DIV or when generating a standalone SVG file. This can also be enabled per-diagram with the `svg-only` modifier.
 * `-p`  
   Generate plaintext error messages. The default is to output HTML-formatted errors.
 * `-d`  
-  Enable “dark mode” in the Pikchr formatter.
+  Enable “dark mode” in the Pikchr formatter. But consider using modifier `x-current-color`
+  for a more flexible solution for “dark mode”.
 * `-q`  
   “Quiet mode”: don’t copy non-diagram input to the output. Use this option when generating a standalone SVG file.
 * `-Q`  
@@ -146,3 +157,4 @@ The following command line options are recognized:
   [PIC]: https://en.wikipedia.org/wiki/PIC_(markup_language)
   [fenced]: https://spec.commonmark.org/0.30/#fenced-code-blocks
   [Unix]: https://en.wikipedia.org/wiki/Unix_philosophy
+  [CommonMark]: https://spec.commonmark.org/
