@@ -124,11 +124,12 @@ static int usage(const char *name, int rv, const char *msg)
 	printf("Zero or more modifiers can follow the start delimiter. Unrecognized\n");
 	printf("modifiers are ignored (but can be matched with -N). Known modifiers:\n");
 	printf("\n");
-	printf("  svg-only    -- bare mode, don't wrap this <svg> in <div> to style max-width\n");
+	printf("  bare-svg    -- bare mode, don't wrap this <svg> in <div> to style max-width\n");
 	printf("  requote     -- output the Pikchr source in an indented code block\n");
 	printf("  delimiters  -- include the start and end delimiter lines in a requote\n");
 	printf("  details     -- if requoting, put source in a <details> element\n");
 	printf("  open        -- default <details> to visible/open\n");
+	printf("  svg-only    -- synonym for bare-svg (for compatibility with old documents)\n");
 	printf("  x-current-color -- Experimental, use \"currentColor\" instead of \"rgb(0,0,0)\"\n");
 	printf("                     for black (0), to paint with the inherited foreground color.\n");
 	printf("\n");
@@ -312,7 +313,7 @@ int main(int argc, char **argv)
 			{
 				accumulating = true;
 				diagramNumber++;
-				bareModeThisDiagram = strword(line, "svg-only") ? true : bareMode;
+				bareModeThisDiagram = bareMode or strword(line, "bare-svg") or strword(line, "svg-only");
 				requoteThisDiagram = strword(line, "requote");
 				includeDelimitersThisDiagram = strword(line, "delimiters") and requoteThisDiagram;
 				detailsThisDiagram = strword(line, "details") and requoteThisDiagram;

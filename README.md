@@ -126,10 +126,11 @@ Pikchr formatter for just that diagram. Unrecognized modifiers are ignored,
 but can be matched by the `-N` command-line option (use `-h` to see all of
 the available options). The following modifiers are recognized:
 
-* `svg-only`: Output the `<svg>` tag without wrapping it in a `<div>`. By default
+* `bare-svg`: Output the `<svg>` tag without wrapping it in a `<div>`. By default
   (unless command-line option `-b` is given) each diagram is enclosed in a
   `<div>` styled with `max-width` set to the diagram’s width, so it won’t
-  expand to the width of the page (which is usually not desired).
+  expand to the width of the page (which is usually not desired). `svg-only`
+  is a synonym for `bare-svg`.
 * `requote`: Output the Pikchr source of this diagram in an indented code block
   after the compiled diagram.
 * `delimiters`: If requoting, include the start and end delimiter lines. The
@@ -171,7 +172,7 @@ The following command line options are recognized:
   Change the raw HTML content of the `<summary>` element when requoting diagram source in a `<details>`
   element. The default value is `Pikchr Source`.
 * `-b`  
-  “Bare SVG mode”: don’t enclose generated SVG elements in a `<div>`. By default a `<div>` wrapper is used to apply a `max-width` style to the diagram to keep it from expanding to the full window width. Use this option to manually style the diagram’s displayed size with your own DIV or when generating a standalone SVG file. This can also be enabled per-diagram with the `svg-only` modifier.
+  “Bare SVG mode”: don’t enclose generated SVG elements in a `<div>`. By default a `<div>` wrapper is used to apply a `max-width` style to the diagram to keep it from expanding to the full window width. Use this option to manually style the diagram’s displayed size with your own DIV or when generating a standalone SVG file. This can also be enabled per-diagram with the `bare-svg` modifier.
 * `-p`  
   Generate plaintext error messages. The default is to output HTML-formatted errors.
 * `-d`  
