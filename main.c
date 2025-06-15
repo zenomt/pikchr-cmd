@@ -114,10 +114,12 @@ static int usage(const char *name, int rv, const char *msg)
 	printf("  -s summary  -- summary text for <details>, default: %s\n", summaryText);
 	printf("  -b          -- bare mode, don't wrap <svg> in <div> to style max-width\n");
 	printf("  -p          -- output plaintext error messages instead of HTML\n");
-	printf("  -d          -- set dark mode\n");
+	printf("  -d          -- set dark mode (but consider using -C instead)\n");
+	printf("  -C          -- set x-current-color for all diagrams\n");
+	printf("  -R          -- requote all diagram source\n");
+	printf("  -D          -- put all requoted diagram source in <details>\n");
 	printf("  -q          -- don't copy non-diagram input to output\n");
 	printf("  -Q          -- remove all diagrams\n");
-	printf("  -n #        -- only translate diagram number # (starting from 1)\n");
 	printf("  -N mod      -- only translate diagrams that have modifier mod\n");
 	printf("  -h          -- print this help\n");
 	printf("\n");
@@ -148,10 +150,11 @@ int main(int argc, char **argv)
 	unsigned int plaintextErrors = 0;
 	unsigned int darkmode = 0;
 	unsigned int flags = 0;
-	size_t onlyDiagramNumber = 0;
+	bool requoteAllDiagrams = false;
+	bool detailsAllDiagrams = false;
 	int rv = 0;
 
-	while((ch = getopt(argc, argv, "c:a:s:bpdqQn:N:h")) != -1)
+	while((ch = getopt(argc, argv, "c:a:s:bpdCRDqQN:h")) != -1)
 	{
 		switch(ch)
 		{
@@ -176,7 +179,19 @@ int main(int argc, char **argv)
 			break;
 
 		case 'd':
-			darkmode = PIKCHR_DARK_MODE;
+			darkmode |= PIKCHR_DARK_MODE;
+			break;
+
+		case 'C':
+			darkmode |= PIKCHR_CURRENTCOLOR_FOR_BLACK;
+			break;
+
+		case 'R':
+			requoteAllDiagrams = true;
+			break;
+
+		case 'D':
+			detailsAllDiagrams = true;
 			break;
 
 		case 'q':
@@ -187,14 +202,8 @@ int main(int argc, char **argv)
 			includeDiagrams = false;
 			break;
 
-		case 'n':
-			onlyDiagramNumber = atol(optarg);
-			onlyModifier = NULL;
-			break;
-
 		case 'N':
 			onlyModifier = optarg;
-			onlyDiagramNumber = -1;
 			break;
 
 		case 'h':
@@ -219,12 +228,12 @@ int main(int argc, char **argv)
 	size_t linecapp = 8192;
 	char *line = (char *)malloc(linecapp);
 	bool accumulating = false;
-	size_t diagramNumber = 0;
 
 	buffer_t accumulator;
 	bufferInit(&accumulator, 8192);
 
-	bool bareModeThisDiagram = bareMode;
+	bool includeThisDiagram = false;
+	bool bareModeThisDiagram = false;
 	bool requoteThisDiagram = false;
 	bool includeDelimitersThisDiagram = false;
 	bool detailsThisDiagram = false;
@@ -249,7 +258,7 @@ int main(int argc, char **argv)
 			{
 				accumulating = false;
 
-				if(includeDiagrams and ((diagramNumber == onlyDiagramNumber) or not onlyDiagramNumber))
+				if(includeThisDiagram)
 				{
 					int width = 0;
 					int height = 0;
@@ -312,16 +321,13 @@ int main(int argc, char **argv)
 			if(0 == regexec(&startPattern, line, 0, NULL, 0))
 			{
 				accumulating = true;
-				diagramNumber++;
 				bareModeThisDiagram = bareMode or strword(line, "bare-svg") or strword(line, "svg-only");
-				requoteThisDiagram = strword(line, "requote");
+				requoteThisDiagram = requoteAllDiagrams or strword(line, "requote");
 				includeDelimitersThisDiagram = strword(line, "delimiters") and requoteThisDiagram;
-				detailsThisDiagram = strword(line, "details") and requoteThisDiagram;
-				detailsOpenThisDiagram = strword(line, "open") and detailsThisDiagram;
+				detailsThisDiagram = requoteThisDiagram and (detailsAllDiagrams or strword(line, "details"));
+				detailsOpenThisDiagram = detailsThisDiagram and strword(line, "open");
 				flagsThisDiagram = flags | (strword(line, "x-current-color") ? PIKCHR_CURRENTCOLOR_FOR_BLACK : 0);
-
-				if(onlyModifier and strword(line, onlyModifier))
-					diagramNumber = onlyDiagramNumber;
+				includeThisDiagram = includeDiagrams and (not onlyModifier or strword(line, onlyModifier));
 
 				if(includeDelimitersThisDiagram)
 					bufferAppend(&accumulator, line, linelen);

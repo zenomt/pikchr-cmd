@@ -93,14 +93,16 @@ the available options). The following modifiers are recognized:
   expand to the width of the page (which is usually not desired). `svg-only`
   is a synonym for `bare-svg`.
 * `requote`: Output the Pikchr source of this diagram in an indented code block
-  after the compiled diagram.
+  after the compiled diagram. Use the `-R` command-line option to set this mode
+  for all diagrams.
 * `delimiters`: If requoting, include the start and end delimiter lines. The
   default is to not include the start and end delimiters in a requote.
 * `details`: If requoting, put the requoted source into a `<details>`
   element. Note that the output is [CommonMark][] compliant, but some older
   non-CommonMark formatters (such as `Markdown.pl`) might format `<details>` incorrectly.
   The `<summary>` content is set with the `-s` command-line option and defaults
-  to “`Pikchr Source`”.
+  to “`Pikchr Source`”. Use the `-D` command-line option to set this mode
+  for all diagrams.
 * `open`: Set the `open` attribute of the `<details>` element so that the
   requoted Pikchr source starts out visible/open/disclosed.
 * `x-current-color`: Experimental, output CSS `currentColor` instead of
@@ -109,7 +111,8 @@ the available options). The following modifiers are recognized:
   inherited foreground color instead of the default black, which may enable
   naturally adapting to different page themes or dark mode. Note that only
   color value 0 is affected. To force black, set the color to a positive
-  number less than 0.5.
+  number less than 0.5. Use the `-C` command-line option to set this
+  experimental mode for all diagrams.
 
 Building
 --------
@@ -137,14 +140,18 @@ The following command line options are recognized:
 * `-p`  
   Generate plaintext error messages. The default is to output HTML-formatted errors.
 * `-d`  
-  Enable “dark mode” in the Pikchr formatter. But consider using modifier `x-current-color`
+  Enable “dark mode” in the Pikchr formatter. But consider using `-C` or modifier `x-current-color`
   for a more flexible solution for “dark mode”.
+* `-C`  
+  Behave as though the experimental `x-current-color` modifier (use CSS `currentColor` instead of `rgb(0,0.0)` for numeric color value 0) was set on all diagrams. See the description of the `x-current-color` modifier above for more information.
+* `-R`  
+  Requote every diagram’s source, as though the `requote` modifier was set on all diagrams.
+* `-D`  
+  Put all requoted diagram source in `<details>` elements, as though the `details` modifier was set on all diagrams.
 * `-q`  
   “Quiet mode”: don’t copy non-diagram input to the output. Use this option when generating a standalone SVG file.
 * `-Q`  
   Remove all Pikchr diagrams from the output.
-* <code>-n <i>num</i></code>  
-  Only translate diagram number _num_ to SVG. Diagrams are numbered starting from 1.  This is usually used along with `-q` and `-b` when generating a standalone SVG file. Note that this method is brittle, consider using `-N` instead.
 * <code>-N <i>mod-string</i></code>  
   Only translate diagrams that have _mod-string_ as one of their [start delimiter modifiers](#start-delimiter-modifiers). This is usually used along with `-q` and `-b` when generating a standalone SVG file (in which case _mod-string_ should be unique).
 * `-h`  
