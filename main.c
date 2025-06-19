@@ -27,6 +27,7 @@ typedef struct {
 
 const char *svgAttrs = "style='font-size:initial;'";
 const char *summaryText = "Pikchr Source";
+const char *summaryAttrs = "";
 
 static bool bufferAppend(buffer_t *buffer, char *str, size_t len)
 {
@@ -112,6 +113,7 @@ static int usage(const char *name, int rv, const char *msg)
 	printf("  -c aClass   -- add class=\"aClass\" to <svg> tags\n");
 	printf("  -a attrs    -- add attrs to <svg> tags, default: %s\n", svgAttrs);
 	printf("  -s summary  -- summary text for <details>, default: %s\n", summaryText);
+	printf("  -S attrs    -- add attrs to <summary> tags, default: %s\n", summaryAttrs);
 	printf("  -b          -- bare mode, don't wrap <svg> in <div> to style max-width\n");
 	printf("  -p          -- output plaintext error messages instead of HTML\n");
 	printf("  -d          -- set dark mode (but consider using -C instead)\n");
@@ -154,7 +156,7 @@ int main(int argc, char **argv)
 	bool detailsAllDiagrams = false;
 	int rv = 0;
 
-	while((ch = getopt(argc, argv, "c:a:s:bpdCRDqQN:h")) != -1)
+	while((ch = getopt(argc, argv, "c:a:s:S:bpdCRDqQN:h")) != -1)
 	{
 		switch(ch)
 		{
@@ -168,6 +170,10 @@ int main(int argc, char **argv)
 
 		case 's':
 			summaryText = optarg;
+			break;
+
+		case 'S':
+			summaryAttrs = optarg;
 			break;
 
 		case 'b':
@@ -294,7 +300,7 @@ int main(int argc, char **argv)
 							if(includeDocument and requoteThisDiagram)
 							{
 								if(detailsThisDiagram)
-									printf("<details markdown=\"1\"%s>\n\n<summary>%s</summary>\n\n", detailsOpenThisDiagram ? " open" : "", summaryText);
+									printf("<details markdown=\"1\"%s>\n\n<summary %s>%s</summary>\n\n", detailsOpenThisDiagram ? " open" : "", summaryAttrs, summaryText);
 
 								printIndented(accumulator.buf);
 								if(includeDelimitersThisDiagram)

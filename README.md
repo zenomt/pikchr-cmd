@@ -44,7 +44,7 @@ which is included here for convenience (as permitted by its generous license).
 
 <details markdown="1" open>
 
-<summary>Pikchr Source</summary>
+<summary title="Click Me!" style="font-size: smaller">Pikchr Source</summary>
 
     ``` pikchr @usage requote delimiters x-current-color details open
     arrow right 225% "Markdown+Pikchr" "Source"
@@ -174,6 +174,8 @@ The following command line options are recognized:
 * <code>-s <em>summary-content</em></code>  
   Change the raw HTML content of the `<summary>` element when requoting diagram source in a `<details>`
   element. The default value is `Pikchr Source`.
+* <code>-S <em>arbitrary-attributes</em></code>  
+  Add _arbitrary-attributes_ string to all generated `<summary>` tags.
 * `-b`  
   “Bare SVG mode”: don’t enclose generated SVG elements in a `<div>`. By default a `<div>` wrapper is used to apply a `max-width` style to the diagram to keep it from expanding to the full window width. Use this option to manually style the diagram’s displayed size with your own DIV or when generating a standalone SVG file. This can also be enabled per-diagram with the `bare-svg` modifier.
 * `-p`  
