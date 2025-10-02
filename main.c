@@ -18,6 +18,7 @@
 #include <unistd.h>
 
 #include "pikchr.h"
+#include "version.h"
 
 typedef struct {
 	char   *buf;
@@ -123,6 +124,7 @@ static int usage(const char *name, int rv, const char *msg)
 	printf("  -q          -- don't copy non-diagram input to output\n");
 	printf("  -Q          -- remove all diagrams\n");
 	printf("  -N mod      -- only translate diagrams that have modifier mod\n");
+	printf("  -v          -- print version number and exit\n");
 	printf("  -h          -- print this help\n");
 	printf("\n");
 	printf("Zero or more modifiers can follow the start delimiter. Unrecognized\n");
@@ -156,7 +158,7 @@ int main(int argc, char **argv)
 	bool detailsAllDiagrams = false;
 	int rv = 0;
 
-	while((ch = getopt(argc, argv, "c:a:s:S:bpdCRDqQN:h")) != -1)
+	while((ch = getopt(argc, argv, "c:a:s:S:bpdCRDqQN:vh")) != -1)
 	{
 		switch(ch)
 		{
@@ -211,6 +213,10 @@ int main(int argc, char **argv)
 		case 'N':
 			onlyModifier = optarg;
 			break;
+
+		case 'v':
+			printf("pikchr %s\n", PIKCHR_CMD_VERSION);
+			return 0;
 
 		case 'h':
 		default:
