@@ -18,6 +18,7 @@
 #include <unistd.h>
 
 #include "pikchr.h"
+#include "version.h"
 
 typedef struct {
 	char   *buf;
@@ -136,6 +137,8 @@ static int usage(const char *name, int rv, const char *msg)
 	printf("  svg-only    -- synonym for bare-svg (for compatibility with old documents)\n");
 	printf("  x-current-color -- Experimental, use \"currentColor\" instead of \"rgb(0,0,0)\"\n");
 	printf("                     for black (0), to paint with the inherited foreground color.\n");
+	printf("\n");
+	printf("Version: %s\n", PIKCHR_CMD_VERSION);
 	printf("\n");
 
 	return rv;
