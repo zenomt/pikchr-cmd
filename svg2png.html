@@ -84,6 +84,7 @@ html, body {
 			<textarea id="svgxml"
 				style="width: 100%; height: 90%; font-family: monospace;"
 				placeholder="Drop or Paste SVG"
+				title="Drop or paste SVG XML or an image URL in this box."
 				autocorrect="false"
 				spellcheck="false"
 				draggable="true"
@@ -93,7 +94,7 @@ html, body {
 	
 		<div style="padding-top: 0.25rem">
 			<label for="oversample">pixel oversample</label>
-			<select oninput="onImageLoaded()" id="oversample">
+			<select oninput="onImageLoaded()" id="oversample" title="Scale the natural dimensions of the image by this much when rasterizing.">
 				<option>0.125</option>
 				<option>0.25</option>
 				<option>0.5</option>
@@ -106,7 +107,7 @@ html, body {
 				<option>64</option>
 			</select>
 			|
-			<span id="dimensions">0 × 0</span>
+			<span id="dimensions" title="The size of the rasterized image in pixels after oversampling/scaling.">0 × 0</span>
 			|
 			<a id="download" download>Save PNG</a>
 		</div>
