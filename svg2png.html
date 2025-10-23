@@ -44,8 +44,7 @@ function onImageLoaded() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-	width.innerText = "" + canvas.width;
-	height.innerText = "" + canvas.height;
+	dimensions.innerText = `${canvas.width} × ${canvas.height}`;
 
 	if(blobUrl)
 	{
@@ -107,7 +106,7 @@ html, body {
 				<option>64</option>
 			</select>
 			|
-			<span id="width">0</span> x <span id="height">0</span>
+			<span id="dimensions">0 × 0</span>
 			|
 			<a id="download" download>Save PNG</a>
 		</div>
@@ -115,7 +114,7 @@ html, body {
 
 	<div style="flex: 2; padding: 1vmin; overflow: auto;">
 		<div style="display: flex; justify-content: center; align-items: center; contain: layout; width: 100%; height: 100%;">
-			<canvas id="canvas" style="width:100%; height: 100%; object-fit: contain;"></canvas>
+			<canvas id="canvas" style="width: 100%; height: 100%; object-fit: contain;"></canvas>
 		</div>
 	</div>
 </div>

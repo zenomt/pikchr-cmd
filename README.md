@@ -209,11 +209,11 @@ the client web browser using `Image` and `<canvas>`. You can copy-and-paste
 SVG XML into the text box, drag an SVG file from your desktop to the text
 box, or enter (or drag) the URL of an image to the box. The natural size of
 the rasterization is determined by the web browser and may vary from one
-browser to another. You can use the "pixel oversample" setting to rasterize
+browser to another. You can use the “pixel oversample” setting to rasterize
 with more or less resolution; adjust to the desired sharpness/fidelity. The
 image is rasterized into a `<canvas>` and, if possible, a PNG file is extracted
-as a `data` URL which is set as the target of the "Save PNG" link. Clicking
-or "downloading" the link should save the PNG file locally.
+as a `data` URL which is set as the target of the “Save PNG” link. Clicking
+or “downloading” the link should save the PNG file locally.
 
 Note that if specifying an image URL from a different origin than the converter
 page, the image’s server must allow Cross-Origin Resource Sharing in order to
